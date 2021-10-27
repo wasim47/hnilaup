@@ -72,36 +72,28 @@ h1, h2, h3, h4, h5, h6 {
 # Header
 --------------------------------------------------------------*/
 #header {
-  height: 80px;
+  width:100%;
+  float:left;
+  height: auto;
   z-index: 997;
   transition: all 0.5s;
   background: #fff;
-  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.3);
+  
 }
-#header.header-scrolled {
-  height: 60px;
+
+.headertop{
+	padding:10px;
+	width:100%;
+	height:auto;
+	text-align:center;
 }
-#header .logo h1 {
-  font-size: 36px;
-  margin: 0;
-  padding: 0;
-  font-weight: 400;
-  letter-spacing: 3px;
-  text-transform: uppercase;
+.headertop a{
+	text-align:center;
 }
-@media (max-width: 991px) {
-  #header .logo h1 {
-    font-size: 28px;
-  }
-}
-#header .logo h1 a, #header .logo h1 a:hover {
-  color: #00366f;
-  text-decoration: none;
-}
-#header .logo img {
-  padding: 0;
-  max-height: 50px;
-  width:100%;
+
+.headertop a img{
+	width:auto;
+	max-height:80px;
 }
 
 .img-fluid{
@@ -117,9 +109,9 @@ h1, h2, h3, h4, h5, h6 {
 /* Desktop Navigation */
 
 .main-nav {
-  /* Drop Down */
-  /* Deep Drop Down */
-  padding-top:10px;
+  width:100%;
+  border-top:1px solid #ddd;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.3);
 }
 
 .main-nav,

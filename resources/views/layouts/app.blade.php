@@ -28,7 +28,6 @@
 
   <!-- Main Stylesheet File -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-  <link rel="manifest" href="manifest.json">
 
 </head>
 
@@ -36,88 +35,87 @@
     
        
         @section('sidebar')
-        	<header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex justify-content-between">
-
-      <div class="logo float-left">
-        <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.jpg') }}" alt="" class="img-fluid"></a>
-      </div>
-
-      <nav class="main-nav float-right d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="{{ route('home')}}">Home</a></li>
-          @foreach($menus as $menu)
-            <?php
-				if($menu->page_structure=='Text'){	
-					$mainurl = route('websitecontent',[$menu->uri,null,null]);	
-				}
-				elseif($menu->page_structure!='Text'){
-					$mainurl = route($menu->page_structure);	
-				}
-				else{
-					$mainurl = route('home');	
-				}
-                $submenus = App\Menu::where('parent_id',$menu->uri)->where('sparent_id', NULL);
-				 if($submenus->count()!=0){
-				 	$mclass = 'drop-down';
-				 }
-				 else{
-				 	$mclass = '';
-				 }
-            ?>
-              <li class="{{ $mclass }}"><a href="{{ $mainurl }}">{{ $menu->title }} </a>
-              	@if($submenus->count()!=0)
-                	<ul>
-                      @foreach($submenus->get() as $smenu)
-						<?php
-							if($smenu->page_structure=='Text'){	
-								$suburl = route('websitecontent',[$menu->uri,$smenu->uri,null]);	
-							}
-							elseif($smenu->page_structure!='Text'){
-								$suburl = route($smenu->page_structure);
-							}							
-							else{
-								$suburl = route('home');
-							}
-							
-                            $lastmenus = App\Menu::where('sparent_id',$smenu->uri);	
-							if($lastmenus->count()!=0){
-								$sclass = 'drop-down';
-							 }
-							 else{
-								$sclass = '';
-							 }											
-                        ?>
-                      <li class="{{ $sclass }}"><a href="{{ $suburl }}">{{ $smenu->title }} </a>
-                      	@if($lastmenus->count()!=0)
-                             <ul>
-                             	 @foreach($lastmenus->get() as $lmenu)
-                                 	<?php
-										if($lmenu->page_structure=='Text'){	
-											$lasturl = route('websitecontent',[$menu->uri,$smenu->uri,$lmenu->uri]);	
-										}
-										elseif($lmenu->page_structure!='Text'){
-											$lasturl = route($lmenu->page_structure);
-										}							
-										else{
-											$lasturl = route('home');
-										}									
-									?>
-                                  	<li><a href="{{ $lasturl }}">{{ $lmenu->title }} </a></li>
-                                 @endforeach
-                            </ul>
-                        @endif
-                      </li>
-                      @endforeach
-                    </ul>
-                @endif
-              </li>
-          @endforeach
-        </ul>
-      </nav><!-- .main-nav -->
-      
-    </div>
-  </header>
+        	 <header id="header" class="fixed-top">
+             	<div class="container" style="padding:0">
+                    <div class="headertop">
+                          <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.jpg') }}" alt=""></a>
+                    </div>
+                    <div class="col-sm-12">
+                      <nav class="main-nav float-right d-none d-lg-block">
+                        <ul>
+                          <li class="active"><a href="{{ route('home')}}">Home</a></li>
+                          @foreach($menus as $menu)
+                            <?php
+                                if($menu->page_structure=='Text'){	
+                                    $mainurl = route('websitecontent',[$menu->uri,null,null]);	
+                                }
+                                elseif($menu->page_structure!='Text'){
+                                    $mainurl = route($menu->page_structure);	
+                                }
+                                else{
+                                    $mainurl = route('home');	
+                                }
+                                $submenus = App\Menu::where('parent_id',$menu->uri)->where('sparent_id', NULL);
+                                 if($submenus->count()!=0){
+                                    $mclass = 'drop-down';
+                                 }
+                                 else{
+                                    $mclass = '';
+                                 }
+                            ?>
+                              <li class="{{ $mclass }}"><a href="{{ $mainurl }}">{{ $menu->title }} </a>
+                                @if($submenus->count()!=0)
+                                    <ul>
+                                      @foreach($submenus->get() as $smenu)
+                                        <?php
+                                            if($smenu->page_structure=='Text'){	
+                                                $suburl = route('websitecontent',[$menu->uri,$smenu->uri,null]);	
+                                            }
+                                            elseif($smenu->page_structure!='Text'){
+                                                $suburl = route($smenu->page_structure);
+                                            }							
+                                            else{
+                                                $suburl = route('home');
+                                            }
+                                            
+                                            $lastmenus = App\Menu::where('sparent_id',$smenu->uri);	
+                                            if($lastmenus->count()!=0){
+                                                $sclass = 'drop-down';
+                                             }
+                                             else{
+                                                $sclass = '';
+                                             }											
+                                        ?>
+                                      <li class="{{ $sclass }}"><a href="{{ $suburl }}">{{ $smenu->title }} </a>
+                                        @if($lastmenus->count()!=0)
+                                             <ul>
+                                                 @foreach($lastmenus->get() as $lmenu)
+                                                    <?php
+                                                        if($lmenu->page_structure=='Text'){	
+                                                            $lasturl = route('websitecontent',[$menu->uri,$smenu->uri,$lmenu->uri]);	
+                                                        }
+                                                        elseif($lmenu->page_structure!='Text'){
+                                                            $lasturl = route($lmenu->page_structure);
+                                                        }							
+                                                        else{
+                                                            $lasturl = route('home');
+                                                        }									
+                                                    ?>
+                                                    <li><a href="{{ $lasturl }}">{{ $lmenu->title }} </a></li>
+                                                 @endforeach
+                                            </ul>
+                                        @endif
+                                      </li>
+                                      @endforeach
+                                    </ul>
+                                @endif
+                              </li>
+                          @endforeach
+                        </ul>
+                      </nav>
+                    </div>   
+                  </div>
+              </header>
     	@show
 
         @yield('content')

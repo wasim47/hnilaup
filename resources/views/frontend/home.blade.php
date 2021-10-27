@@ -5,25 +5,25 @@
     
 @endsection
 
-@section('title', 'Welcome to ToonBD.')
+@section('title', 'Welcome to HNILAUP.')
 @section('content')
   
-
+<div class="container">
   <main id="main">
-		<section>    
-    <div style="margin-top:80px">
-  	  <div class="amazingslider-wrapper" id="amazingslider-wrapper-1" style="display:block;position:relative;max-width:100%;margin:0px auto 0px;">
-        <div class="amazingslider" id="amazingslider-1" style="display:block;position:relative;margin:0 auto;">
-            <ul class="amazingslider-slides" style="display:none;">
-                 @foreach($banners as $banner)
-                <li><img src="{{ asset('uploads/banner/'.$banner->image)}}" alt="{{ $banner->name }}"  title="{{ $banner->name }}" /></li>
-                @endforeach
-            </ul>
-        <div class="amazingslider-engine"><a href="http://amazingslider.com" title="jQuery Slider">jQuery Slider</a></div>
-        </div>
-    </div>
-    </div>	
-  </section>
+		<section> 
+            	<div style="margin-top:80px">
+                  <div class="amazingslider-wrapper" id="amazingslider-wrapper-1" style="display:block;position:relative;max-width:100%;margin:0px auto 0px;">
+                    <div class="amazingslider" id="amazingslider-1" style="display:block;position:relative;margin:0 auto;">
+                        <ul class="amazingslider-slides" style="display:none;">
+                             @foreach($banners as $banner)
+                            <li><img src="{{ asset('uploads/banner/'.$banner->image)}}" alt="{{ $banner->name }}"  title="{{ $banner->name }}" /></li>
+                            @endforeach
+                        </ul>
+                    <div class="amazingslider-engine"><a href="http://amazingslider.com" title="jQuery Slider">jQuery Slider</a></div>
+                    </div>
+                </div>
+                </div>
+        </section>
     <!--==========================
       About Us Section
     ============================-->
@@ -33,9 +33,9 @@
         <header class="section-header">
           <h3>About Us</h3>
         </header>
-
-        {!! $articles->content !!}
-
+		@if($articles!="")
+        	{!! $articles->content !!}
+		@endif
       </div>
     </section><!-- #about -->
 
@@ -293,7 +293,7 @@
     </section><?php */?>
 
   </main>
-        
+</div>
 @endsection
 
 @section('footer')
