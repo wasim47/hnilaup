@@ -46,26 +46,16 @@ return [
             'provider' => 'administrations',
             'hash' => false,
         ],
-		'hospital' => [
+		'secretary' => [
             'driver' => 'session',
-            'provider' => 'hospital_users',
+            'provider' => 'secretaries',
         ],
 
-        'hospital-api' => [
+        'secretary-api' => [
             'driver' => 'token',
-            'provider' => 'hospital_users',
+            'provider' => 'secretaries',
             'hash' => false,
         ],
-		'dghs' => [
-            'driver' => 'session',
-            'provider' => 'dghs_users',
-        ],
-
-        'dghs-api' => [
-            'driver' => 'token',
-            'provider' => 'dghs_users',
-            'hash' => false,
-        ],		
     ],
 
     /*
@@ -90,14 +80,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Administration::class,
         ],
-		'hospital_users' => [
+		'secretaries' => [
             'driver' => 'eloquent',
-            'model' => App\HospitalUser::class,
+            'model' => App\Secretary::class,
         ],
-		'dghs_users' => [
-            'driver' => 'eloquent',
-            'model' => App\DghsUser::class,
-        ],
+		
 		
     ],
 
@@ -122,16 +109,11 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-		'hospital_users' => [
-            'provider' => 'hospital_users',
-            'table' => 'password_resets_hospital_users',
+		'secretaries' => [
+            'provider' => 'secretaries',
+            'table' => 'password_resets',
             'expire' => 60,
         ],
-		'dghs_users' => [
-            'provider' => 'dghs_users',
-            'table' => 'password_resets_dghs_users',
-            'expire' => 60,
-        ],		
     ],
 
 ];

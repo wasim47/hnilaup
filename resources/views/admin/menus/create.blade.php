@@ -70,15 +70,8 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select name="page_structure" class="form-control">
                           	<option value="Text">Text</option> 
-                            <option value="product">Product</option> 
-                            <option value="employee">Employee</option> 
-                            <option value="agent">Agent</option>  
-                            <option value="circular">Circular</option>  
-                            <option value="branch">Branch</option> 
-                            <option value="product">Product</option> 
-                            <option value="director">Board of Director</option> 
-                            <option value="management">Top Executive</option>
-                            <option value="report">Report</option>   
+                            <option value="notice">Notice</option> 
+                            <option value="members">Member</option> 
                             <option value="videos">Video Gallery</option> 
                             <option value="photos">Photo Gallery</option>                          
                           </select>

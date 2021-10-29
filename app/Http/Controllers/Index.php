@@ -8,16 +8,12 @@ use App\Menu;
 use App\Content;
 use App\Banner;
 use App\Gallery;
-use App\Service;
-use App\Blog;
-use App\Partner;
+use App\NoticeType;
+use App\Notice;
 use App\Management;
 use App\Employee;
-use App\Product;
-use App\Counter;
 use App\VideoGallery;
-use App\Circular;
-use App\Protfolio;
+use App\Usefulllink;
 
 class Index extends Controller
 {
@@ -29,18 +25,21 @@ class Index extends Controller
     public function index()
     {      
 		$menus = Menu::where('parent_id',NULL)->get();	
-		$banners = Banner::all();	
-		$articles = Content::where('menu_id',1)->first();	
+		$banners = Banner::where('status',1)->get();
+		$contactus = Content::where('menu_id',1)->first();		
+		$charmanmessage = Management::where('sequence',1)->orderBy('id','DESC')->first();	
+		$ministrymessage = Management::where('sequence',2)->orderBy('id','DESC')->first();	
 		
-		$services = Service::where('status',1)->orderBy('id', 'DESC')->take(6)->get();	
-		$whychoose = Blog::where('status',1)->orderBy('id', 'DESC')->take(10)->get();	
-		$ourteam = Employee::where('status', 1)->orderBy('id', 'DESC')->get();
-		$partners = Partner::where('status', 1)->orderBy('id', 'ASC')->get();
-		$protfolios = Protfolio::where('status', 1)->orderBy('id', 'ASC')->get();
+		$members = Employee::where('status',1)->orderBy('id', 'DESC')->take(10)->get();
+		$noticetype = NoticeType::with('items')->orderBy('id', 'DESC')->get();	
+		
+		$generalnotices = Notice::where('status',1)->orderBy('id', 'DESC')->take(20)->get();	
+		
 		$galleries = Gallery::where('status',1)->orderBy('sequence', 'ASC')->get();
-		$counters = Counter::where('status', 1)->orderBy('sequence', 'ASC')->get();
+		$videogalleries = VideoGallery::where('status',1)->orderBy('id', 'DESC')->get();
+		$usefulllinks = Usefulllink::orderBy('id', 'DESC')->get();
 		 
-		return view('frontend.home',compact('menus','banners','articles','services','whychoose','ourteam','partners','services','galleries','counters','protfolios'));
+		return view('frontend.home',compact('menus','banners','charmanmessage','ministrymessage','members','contactus','generalnotices','noticetype','galleries','videogalleries','usefulllinks'));
     }
 	
 	public function contents()
@@ -48,8 +47,9 @@ class Index extends Controller
 		$slug = request()->segment(2);
 		$sslug = request()->segment(3);
 		$ssslug = request()->segment(4);
-		
+		$contactus = Content::where('menu_id',1)->first();	
 		$menus = Menu::where('parent_id',NULL)->get();
+		
 		if($slug!='' && $sslug!='' && $ssslug!=""){
 			$getParentID = Menu::where('uri', $ssslug)->select('parent_id','sparent_id')->first();
 			$menuslug = Menu::where([['parent_id', $slug],['sparent_id', $sslug],['uri', $ssslug]])->first();
@@ -68,100 +68,33 @@ class Index extends Controller
 		
 		$articles = Content::where('menu_id',$menuslug->id)->first();			
 		$allsubmenus = Menu::where('parent_id', $menuslug->id);			
-		return view('frontend.article',compact('articles','menus','menuslug','allsubmenus'));
+		return view('frontend.article',compact('articles','menus','menuslug','allsubmenus','contactus'));
     }
 	
 	public function service_details($id)
     {      
 		$menus = Menu::where('parent_id',NULL)->get();		
-		$services = Service::where('id',$id)->first();				
-		return view('frontend.service',compact('menus','services'));
+		$services = Notice::where('id',$id)->first();	
+		$contactus = Content::where('menu_id',1)->first();				
+		return view('frontend.service',compact('menus','services','contactus'));
     }
-		
-	public function news() 
-    {      
-		$menus = Menu::where('parent_id',NULL)->get();	
-		$allnews = Blog::where('status',1)->orderBy('id', 'DESC')->paginate(50);	
-		return view('frontend.news',compact('menus','allnews'));
-    }
-	
-	public function news_details($slug) 
-    {      
-		$menus = Menu::where('parent_id',NULL)->get();	
-		$news = Blog::where('slug',$slug)->first();	
-		
-		$relatednews = Blog::where('id','!=',$news->id)->take(5)->get();	
-		$latestnews = Blog::orderBy('id','DESC')->take(10)->get();	
-		
-		return view('frontend.news_details',compact('menus','news','relatednews','latestnews'));
-    }
-	
-	
-
-	
+			
 	public function management(Request $req)
     {      
 		$menus = Menu::where('parent_id',NULL)->get();
 		$managements = Management::all();					
-		return view('frontend.management',compact('managements','menus'));
+		$contactus = Content::where('menu_id',1)->first();	
+		return view('frontend.management',compact('managements','menus','contactus'));
     }
-	
-	public function circular(Request $req)
-    {      
-		$menus = Menu::where('parent_id',NULL)->get();		
-		$directors = Circular::all();				
-		return view('frontend.circular',compact('menus','directors'));
-    }
-	
 	
 	public function employee(Request $req)
     {      
 		$menus = Menu::where('parent_id',NULL)->get();		
 		$allemployee = Employee::orderBy('id','desc')->get();
-		return view('frontend.employee',compact('menus','allemployee'));
+		$contactus = Content::where('menu_id',1)->first();	
+		return view('frontend.employee',compact('menus','allemployee','contactus'));
     }
 	
-	public function product(Request $req)
-    {      
-		$menus = Menu::where('parent_id',NULL)->get();		
-		$products = Product::all();				
-		return view('frontend.product',compact('menus','products'));
-    }
-	
-	
-	public function product_details($id)
-    {      
-		$menus = Menu::where('parent_id',NULL)->get();		
-		$products = Product::where('id',$id)->first();				
-		return view('frontend.product_details',compact('menus','products'));
-    }
-	
-	
-		
-	public function faqs(Request $req)
-    {		   
-		$menus = Menu::where('parent_id',NULL)->get();			
-		$faqtopic = FaqTopic::all();
-
-		if($req->has('q') && $req->q!=""){
-			$faqs = Faq::where('topic',$req->q)->get();
-		}
-		else{
-			$faqs = Faq::all();
-		}
-		return view('frontend.faq',compact('faqtopic','menus','faqs','menus'));
-    }
-	
-	
-	public function reports($slug)
-    {      
-		$menus = Menu::where('parent_id',NULL)->get();					
-		$selectedmenu = Menu::where('uri', $slug)->first();	
-		$reportingyear = Report::select('years')->where('menu_id',$selectedmenu->id)->groupBy('years')->orderBy('years','DESC')->get();	
-		$reports = Report::where('menu_id',$selectedmenu->id)->orderBy('id','ASC')->get();	
-				
-		return view('frontend.report',compact('menus','reports','selectedmenu','reportingyear'));
-    }
 	
 	public function getDownload($name,$files)
 	{
@@ -175,18 +108,20 @@ class Index extends Controller
 	
 	public function photos(Request $req)
     {      
-		$menus = Menu::where('parent_id',NULL)->get();		
+		$menus = Menu::where('parent_id',NULL)->get();	
+		$contactus = Content::where('menu_id',1)->first();		
 		$photos = Gallery::all();				
-		return view('frontend.photos',compact('menus','photos'));
+		return view('frontend.photos',compact('menus','photos','contactus'));
     }
 	
 	
 	
 	public function videos(Request $req)
     {      
-		$menus = Menu::where('parent_id',NULL)->get();		
+		$menus = Menu::where('parent_id',NULL)->get();	
+		$contactus = Content::where('menu_id',1)->first();		
 		$videos = VideoGallery::all();				
-		return view('frontend.videos',compact('menus','videos'));
+		return view('frontend.videos',compact('menus','videos','contactus'));
     }
 	
 

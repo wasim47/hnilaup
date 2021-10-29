@@ -27,7 +27,7 @@
                       <div class="col-sm-12">
                         	<div class="col-sm-6">
                             		<div class="form-group row">
-                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Site Name') }}
+                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}
                                         <span style="color:#ff0000; font-size:20px;">*</span></label>            
                                         <div class="col-md-8">
                                             <input id="name" type="text" class="form-control" name="name" value="{{ $usefulllinkinfo->name }}" required>            
@@ -39,14 +39,36 @@
                                         </div>
                                     </div>
                                     
-                        			<div class="form-group row">
-                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Usefull Link') }}
+                                    <div class="form-group row">
+                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Type') }}
                                         <span style="color:#ff0000; font-size:20px;">*</span></label>            
                                         <div class="col-md-8">
-                                            <input id="links" type="text" class="form-control" name="links" value="{{ $usefulllinkinfo->links }}" required>            
+                                           <select name="type" class="form-control" required onchange="getType(this.value)">
+                                           		<option value="">Select Type</option>
+                                                <option value="url">URL</option>
+                                                <option value="login">User Login</option>
+                                           </select>
+                                        </div>
+                                    </div>
+                        			<div class="form-group row" id="existingurl" style="display:none">
+                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('URL') }}
+                                        <span style="color:#ff0000; font-size:20px;">*</span></label>            
+                                        <div class="col-md-8">
+                                            <input id="links" type="text" class="form-control" name="links" value="{{ $usefulllinkinfo->links }}">            
                                             @if ($errors->has('links'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('links') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
+                                        <div class="col-md-8">
+                                            <input id="image" type="file" class="form-control" name="image">
+                                            @if ($errors->has('image'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('image') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
@@ -72,6 +94,16 @@
     
     </div>
 </div>
+<script>
+ function getType(val){
+ 	if(val=='url'){
+		document.getElementById('existingurl').style.display='inline';
+	}
+	else{
+		document.getElementById('existingurl').style.display='none';
+	}
+ }
+ </script>
 @endsection
 
  

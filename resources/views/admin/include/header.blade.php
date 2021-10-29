@@ -2,7 +2,7 @@
       <div class="navbar navbar-default">
         <div class="navbar-header">
           <a class="navbar-brand navbar-brand-center" href="{{route('home')}}" target="_blank" style="width:100%; padding:0; margin:0 0 20px 0; text-align:center;">
-            <img class="" src="{{ asset('assets/front/images/logo.jpg') }}" alt="ToonBD" style="width:100px; height:auto; text-align:center; margin:auto 0 20px 0">
+            <img src="{{ asset('assets/img/logo.png') }}" alt="ToonBD" style="width:auto; height:50px;">
           </a>
           <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#sidenav">
             <span class="sr-only">Toggle navigation</span>
@@ -99,78 +99,47 @@
                           </ul>
                         </li>
                         
-                       <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Why Choose</span></a>
+                      
+                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Secretary (Login User)</span></a>
                           <ul class="sidenav-subnav collapse">
-                            <li><a href="{{ route('blog.index')}}"><span class="sidenav-icon fa fa-bars"></span>Content List</a></li>
-                            <li><a href="{{ route('blog.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Content</a></li>
+                            <li><a href="{{ route('secretary.index')}}"><span class="sidenav-icon fa fa-bars"></span>Secretary List</a></li>
+                            <li><a href="{{ route('secretary.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Secretary</a></li>
                           </ul>
                         </li>
                         
-                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Circular</span></a>
+                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Notice Type</span></a>
                           <ul class="sidenav-subnav collapse">
-                            <li><a href="{{ route('circular.index')}}"><span class="sidenav-icon fa fa-bars"></span>Circular List</a></li>
-                            <li><a href="{{ route('circular.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Circular</a></li>
+                            <li><a href="{{ route('noticetype.index')}}"><span class="sidenav-icon fa fa-bars"></span>Notice Type List</a></li>
+                            <li><a href="{{ route('noticetype.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Type</a></li>
                           </ul>
                         </li>
                         
-                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Our Services</span></a>
+                        
+                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Notice</span></a>
                           <ul class="sidenav-subnav collapse">
-                            <li><a href="{{ route('service.index')}}"><span class="sidenav-icon fa fa-bars"></span>Services List</a></li>
-                            <li><a href="{{ route('service.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Service</a></li>
+                            <li><a href="{{ route('notice.index')}}"><span class="sidenav-icon fa fa-bars"></span>Notice List</a></li>
+                            <li><a href="{{ route('notice.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Notice</a></li>
                           </ul>
                         </li>
                         
-                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Our Clients</span></a>
+                                                
+                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Messages</span></a>
                           <ul class="sidenav-subnav collapse">
-                            <li><a href="{{ route('partner.index')}}"><span class="sidenav-icon fa fa-bars"></span>Client List</a></li>
-                            <li><a href="{{ route('partner.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Client</a></li>
-                          </ul>
-                        </li>
-                       
-                        
-                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Counter</span></a>
-                          <ul class="sidenav-subnav collapse">
-                            <li><a href="{{ route('counter.index')}}"><span class="sidenav-icon fa fa-bars"></span>Counter List</a></li>
-                            <li><a href="{{ route('counter.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Counter</a></li>
-                          </ul>
-                        </li>
-                        
-                    
-                        
-                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Management List</span></a>
-                          <ul class="sidenav-subnav collapse">
-                            <li><a href="{{ route('management.index')}}"><span class="sidenav-icon fa fa-bars"></span>Management List</a></li>
-                            <li><a href="{{ route('management.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New</a></li>
+                            <li><a href="{{ route('management.index')}}"><span class="sidenav-icon fa fa-bars"></span>Message List</a></li>
+                            <li><a href="{{ route('management.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Message</a></li>
                           </ul>
                         </li>
                                                
                         
                          <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
-                        <span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Employee List</span></a>
+                        <span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Members</span></a>
                           <ul class="sidenav-subnav collapse">
-                            <li><a href="{{ route('employee.index')}}"><span class="sidenav-icon fa fa-bars"></span>Employee List</a></li>
-                            <li><a href="{{ route('employee.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Employee</a></li>
+                            <li><a href="{{ route('employee.index')}}"><span class="sidenav-icon fa fa-bars"></span>Member List</a></li>
+                            <li><a href="{{ route('employee.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Member</a></li>
                           </ul>
                         </li>
                         
                        
-                        
-                         <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
-                        <span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Products List</span></a>
-                          <ul class="sidenav-subnav collapse">
-                            <li><a href="{{ route('product.index')}}"><span class="sidenav-icon fa fa-bars"></span>Products List</a></li>
-                            <li><a href="{{ route('product.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Product</a></li>
-                          </ul>
-                        </li>
-                        
-                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
-                           <span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Protfolio</span></a>
-                          <ul class="sidenav-subnav collapse">
-                            <li><a href="{{ route('protfolio.index')}}"><span class="sidenav-icon fa fa-bars"></span>Protfolio List</a></li>
-                            <li><a href="{{ route('protfolio.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Protfolio</a></li>
-                          </ul>
-                        </li>
-                        
                          <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
                            <span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Photo Gallery</span></a>
                           <ul class="sidenav-subnav collapse">
@@ -179,8 +148,6 @@
                           </ul>
                         </li>
                         
-                        
-                     <li class="sidenav-heading">Website Contents</li>  
                      	
                         <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-list"></span><span class="sidenav-label">Video Gallery</span></a>
                       <ul class="sidenav-subnav collapse">
@@ -195,7 +162,8 @@
                             <li><a href="{{ route('banner.index')}}"><span class="sidenav-icon fa fa-bars"></span>Banner List</a></li>
                             <li><a href="{{ route('banner.create')}}"><span class="sidenav-icon fa fa-plus"></span>New Banner</a></li>
                           </ul>
-                        </li>     
+                        </li>  
+                           
                          <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-list"></span><span class="sidenav-label">Usefull Link</span></a>
                           <ul class="sidenav-subnav collapse">
                             <li><a href="{{ route('usefulllink.index')}}"><span class="sidenav-icon fa fa-bars"></span>Link List</a></li>

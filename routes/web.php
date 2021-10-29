@@ -16,12 +16,9 @@
 });*/
 Route::get('/', 'Index@index')-> name('home');
 Route::get('management', 'Index@management')->name('management');
-Route::get('service/{id}', 'Index@service_details')->name('service');
-Route::get('circular', 'Index@circular')->name('circular');
+Route::get('notice/{id}', 'Index@service_details')->name('notice');
 Route::get('photos', 'Index@photos')->name('photos');
 Route::get('videos', 'Index@videos')->name('videos');
-Route::get('product', 'Index@product')->name('product');
-Route::get('product/{id}', 'Index@product_details')->name('product.details');
 Route::get('employee', 'Index@employee')->name('employee');
 
 Route::get('content', 'Index@index')->name('home');
@@ -29,17 +26,36 @@ Route::get('content/{slug}', 'Index@contents')->name('websitecontent');
 Route::get('content/{slug}/{sslug}', 'Index@contents')->name('websitecontent');
 Route::get('content/{slug}/{sslug}/{ssslug}', 'Index@contents')->name('websitecontent');
 
-Route::get('news', 'Index@news')->name('news');
-Route::get('news/{slug}', 'Index@news_details')->name('news.details');
-
 Route::any('userapprove', 'CommonController@permissions')->name('user.approve');
 Route::any('usersapprove', 'CommonController@permissionsUser')->name('users.approve');
 Route::get('testingdata', 'CommonController@updateSlug');
 Route::any('masterdelete', 'CommonController@deletedata')->name('masterdelete');
 
 
-//////////////////////////////////////////////////////////////////////////////////// Admin Routing Areas ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Route::group(['prefix' => 'secretary', 'namespace' => 'Secretary'], function () {
+    Route::get('/', 'Auth\LoginController@showLoginForm');
+	Route::get('login', 'Auth\LoginController@showLoginForm');
+    Route::post('login', 'Auth\LoginController@login')->name('secretary.login');
+		
+	 // Password Reset Routes...
+    Route::get('/forgot-password', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('secretary.forgotpassword');
+    Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('secretary.passemail');
+    Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('secretary.password.reset');
+    Route::post('/resetpassowrd', 'Auth\ResetPasswordController@resetpassword')->name('secretary.resetpassowrd');	
+});
+
+Route::group(['prefix' => 'secretary',  'namespace' => 'Secretary', 'middleware' => 'auth:secretary'], function()
+{
+	Route::get('/profile', 'ProfileController@index')->name('secretary.profile');		
+	Route::post('/new-user', 'ProfileController@storeNewUser')->name('secretary.newuser');
+	Route::post('/useredit', 'ProfileController@userUpdate')->name('secretary.useredit');	
+	Route::post('/secretaryprofile', 'ProfileController@updateProfile')->name('secretary.updateprofile');	
+	Route::post('/change-password', 'ProfileController@updatepassword')->name('secretary.passwordupdate');
+    Route::post('logout', 'Auth\LoginController@logout')->name('secretary.logout');
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////// Admin Routing Areas /////////////////////////////////////////////////////////////////////////
 Route::get('administration', 'Auth\LoginController@showLoginForm')->name('administration');
 Route::post('adminlogin', 'Auth\LoginController@login')->name('adminlogin');
 
@@ -71,17 +87,12 @@ Route::group(['prefix' => 'administration',  'middleware' => 'auth:administratio
 	Route::resource('banner','BannerController');
 	Route::resource('employee','EmployeeController');
 	Route::resource('usefulllink','UsefulllinkController');
-	Route::resource('blog','BlogController');
-	Route::resource('circular','CircularController');
-	Route::resource('service','ServiceController');
-	Route::resource('director','StaffController');
-	Route::resource('product','ProductController');
+	Route::resource('noticetype','NoticetypeController');
+	Route::resource('notice','NoticeController');
 	Route::resource('management','ManagementController');
-	Route::resource('partner','PartnerController');
-	Route::resource('protfolio','ProtfolioController');
 	Route::resource('photogalery','PhotoGalleryController');
 	Route::resource('gallery','GalleryController');
-	Route::resource('counter','CounterController');	
 	Route::resource('video','VideoController');	
+	Route::resource('secretary','SecretaryController');
 	Route::get('/ajaxmenu','MenusController@searchmenu')->name('menu.ajaxmenu');
 });

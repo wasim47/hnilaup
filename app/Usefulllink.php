@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Usefulllink extends Model
 {
 
-	protected $fillable = ['name','links'];
+	protected $fillable = ['name','links','image','type'];
 }

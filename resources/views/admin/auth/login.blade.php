@@ -2,7 +2,7 @@
 <div class="login">
       <div class="login-body">
         <a class="login-brand" href="/" style="background:#fff;">
-          <img class="img-responsive" src="{{ url('assets/front/images/logo.jpg')}}" alt="bdicu">
+          <img class="img-responsive" src="{{ url('assets/front/images/logo.png')}}" alt="bdicu">
         </a>
         <div class="login-form">
           <form data-toggle="md-validator" method="POST" action="{{ route('adminlogin') }}">

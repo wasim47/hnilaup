@@ -35,161 +35,163 @@
     
        
         @section('sidebar')
-        	 <header id="header" class="fixed-top">
-             	<div class="container" style="padding:0">
-                    <div class="headertop">
-                          <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="col-sm-12">
-                      <nav class="main-nav float-right d-none d-lg-block">
-                        <ul>
-                          <li class="active"><a href="{{ route('home')}}">Home</a></li>
-                          @foreach($menus as $menu)
-                            <?php
-                                if($menu->page_structure=='Text'){	
-                                    $mainurl = route('websitecontent',[$menu->uri,null,null]);	
-                                }
-                                elseif($menu->page_structure!='Text'){
-                                    $mainurl = route($menu->page_structure);	
-                                }
-                                else{
-                                    $mainurl = route('home');	
-                                }
-                                $submenus = App\Menu::where('parent_id',$menu->uri)->where('sparent_id', NULL);
-                                 if($submenus->count()!=0){
-                                    $mclass = 'drop-down';
-                                 }
-                                 else{
-                                    $mclass = '';
-                                 }
-                            ?>
-                              <li class="{{ $mclass }}"><a href="{{ $mainurl }}">{{ $menu->title }} </a>
-                                @if($submenus->count()!=0)
-                                    <ul>
-                                      @foreach($submenus->get() as $smenu)
-                                        <?php
-                                            if($smenu->page_structure=='Text'){	
-                                                $suburl = route('websitecontent',[$menu->uri,$smenu->uri,null]);	
-                                            }
-                                            elseif($smenu->page_structure!='Text'){
-                                                $suburl = route($smenu->page_structure);
-                                            }							
-                                            else{
-                                                $suburl = route('home');
-                                            }
-                                            
-                                            $lastmenus = App\Menu::where('sparent_id',$smenu->uri);	
-                                            if($lastmenus->count()!=0){
-                                                $sclass = 'drop-down';
-                                             }
-                                             else{
-                                                $sclass = '';
-                                             }											
-                                        ?>
-                                      <li class="{{ $sclass }}"><a href="{{ $suburl }}">{{ $smenu->title }} </a>
-                                        @if($lastmenus->count()!=0)
-                                             <ul>
-                                                 @foreach($lastmenus->get() as $lmenu)
-                                                    <?php
-                                                        if($lmenu->page_structure=='Text'){	
-                                                            $lasturl = route('websitecontent',[$menu->uri,$smenu->uri,$lmenu->uri]);	
-                                                        }
-                                                        elseif($lmenu->page_structure!='Text'){
-                                                            $lasturl = route($lmenu->page_structure);
-                                                        }							
-                                                        else{
-                                                            $lasturl = route('home');
-                                                        }									
-                                                    ?>
-                                                    <li><a href="{{ $lasturl }}">{{ $lmenu->title }} </a></li>
-                                                 @endforeach
-                                            </ul>
-                                        @endif
-                                      </li>
-                                      @endforeach
-                                    </ul>
-                                @endif
-                              </li>
-                          @endforeach
-                        </ul>
-                      </nav>
-                    </div>   
-                  </div>
-              </header>
+        	<div class="container">
+                 <header id="header">             	
+                        <div class="headertop">
+                              <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt=""></a>
+                        </div>
+                        <nav class="main-nav float-right d-none d-lg-block">
+                            <ul>
+                              <li class="active"><a href="{{ route('home')}}">Home</a></li>
+                              @foreach($menus as $menu)
+                                <?php
+                                    if($menu->page_structure=='Text'){	
+                                        $mainurl = route('websitecontent',[$menu->uri,null,null]);	
+                                    }
+                                    elseif($menu->page_structure!='Text'){
+                                        $mainurl = route($menu->page_structure);	
+                                    }
+                                    else{
+                                        $mainurl = route('home');	
+                                    }
+                                    $submenus = App\Menu::where('parent_id',$menu->uri)->where('sparent_id', NULL);
+                                     if($submenus->count()!=0){
+                                        $mclass = 'drop-down';
+                                     }
+                                     else{
+                                        $mclass = '';
+                                     }
+                                ?>
+                                  <li class="{{ $mclass }}"><a href="{{ $mainurl }}">{{ $menu->title }} </a>
+                                    @if($submenus->count()!=0)
+                                        <ul>
+                                          @foreach($submenus->get() as $smenu)
+                                            <?php
+                                                if($smenu->page_structure=='Text'){	
+                                                    $suburl = route('websitecontent',[$menu->uri,$smenu->uri,null]);	
+                                                }
+                                                elseif($smenu->page_structure!='Text'){
+                                                    $suburl = route($smenu->page_structure);
+                                                }							
+                                                else{
+                                                    $suburl = route('home');
+                                                }
+                                                
+                                                $lastmenus = App\Menu::where('sparent_id',$smenu->uri);	
+                                                if($lastmenus->count()!=0){
+                                                    $sclass = 'drop-down';
+                                                 }
+                                                 else{
+                                                    $sclass = '';
+                                                 }											
+                                            ?>
+                                          <li class="{{ $sclass }}"><a href="{{ $suburl }}">{{ $smenu->title }} </a>
+                                            @if($lastmenus->count()!=0)
+                                                 <ul>
+                                                     @foreach($lastmenus->get() as $lmenu)
+                                                        <?php
+                                                            if($lmenu->page_structure=='Text'){	
+                                                                $lasturl = route('websitecontent',[$menu->uri,$smenu->uri,$lmenu->uri]);	
+                                                            }
+                                                            elseif($lmenu->page_structure!='Text'){
+                                                                $lasturl = route($lmenu->page_structure);
+                                                            }							
+                                                            else{
+                                                                $lasturl = route('home');
+                                                            }									
+                                                        ?>
+                                                        <li><a href="{{ $lasturl }}">{{ $lmenu->title }} </a></li>
+                                                     @endforeach
+                                                </ul>
+                                            @endif
+                                          </li>
+                                          @endforeach
+                                        </ul>
+                                    @endif
+                                  </li>
+                              @endforeach
+                              
+                              @if (Auth::guard('secretary')->check())                
+                                  <li style="float:right"><a href="{{ route('secretary.profile') }}">Profile</a></li>
+                                  <li style="float:right"><a href="{{ route('secretary.logout') }}" 
+                                  onClick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                  <form id="logout-form" action="{{ route('secretary.logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
+                                  </li>
+                            @else
+                                  <li style="float:right"><i class="bx bx-chevron-right"></i> <a href="{{ route('secretary.login') }}">Login</a></li>
+                            @endif
+                            </ul>
+                          </nav>
+                  </header>
+              </div>
     	@show
-
-        @yield('content')
         
+		<div class="container">
+        @yield('content')
+        </div>
         
         @section('footer')
+        	<div class="container">
         	<footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6 footer-info">
-            <h3>ToonBD</h3>
-            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.jpg') }}" alt="" class="img-fluid"></a>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              @foreach($menus as $menu)
-            <?php
-				if($menu->page_structure=='Text'){	
-					$mainurl = route('websitecontent',[$menu->uri,null,null]);	
-				}
-				elseif($menu->page_structure!='Text'){
-					$mainurl = route($menu->page_structure);	
-				}
-				else{
-					$mainurl = route('home');	
-				}
-            ?>
-              <li><a href="{{ $mainurl }}">{{ $menu->title }} </a></li>
-              @endforeach
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
-            <p>
-              House-55, sonargaon janapatha road, <br>
-              sector- 07, uttara Dhaka <br>
-              Bangladesh <br>
-              <strong>Phone:</strong> +8801629113353<br>
-              <strong>Email:</strong> rikunatunbarta@gmail.com<br>
-            </p>
-
-            <div class="social-links">
-              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-              <a href="https://www.facebook.com/Toonbdltd/" class="facebook"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit"  value="Subscribe">
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong>ToonBD</strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        Designed by <a href="#">softXmagic</a>
-      </div>
-    </div>
-  </footer>
+                <div class="footer-top">
+                  <div class="container">
+                    <div class="row">
+            
+                      
+            
+                      <div class="col-lg-4 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                          @foreach($menus as $menu)
+                        <?php
+                            if($menu->page_structure=='Text'){	
+                                $mainurl = route('websitecontent',[$menu->uri,null,null]);	
+                            }
+                            elseif($menu->page_structure!='Text'){
+                                $mainurl = route($menu->page_structure);	
+                            }
+                            else{
+                                $mainurl = route('home');	
+                            }
+                        ?>
+                          <li><a href="{{ $mainurl }}">{{ $menu->title }} </a></li>
+                          @endforeach
+                        </ul>
+                      </div>
+            
+                      <div class="col-lg-4 col-md-6 footer-contact">
+                      	@if($contactus!="")
+                        <h4>{{ $contactus->title }}</h4>
+                        <p>
+                          {{ $contactus->details }}
+                        </p>
+            			@endif
+                        
+                      </div>
+                      <div class="col-lg-4 col-md-6 footer-contact">
+                      	<h4>Follow Us</h4>
+            			<div class="social-links">
+                          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                          <a href="https://www.facebook.com/Toonbdltd/" class="facebook"><i class="fa fa-facebook"></i></a>
+                          <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                          <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>            </div>
+                      </div>
+            
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="container">
+                  <div class="copyright">
+                    &copy; Copyright <strong>ToonBD</strong>. All Rights Reserved
+                  </div>
+                  <div class="credits">
+                    Designed by <a href="#">softXmagic</a>
+                  </div>
+                </div>
+              </footer>
+  		</div>
   			 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
               <script src="{{ asset('assets/lib/jquery/jquery.min.js') }}"></script>
               <script src="{{ asset('assets/lib/jquery/jquery-migrate.min.js') }}"></script>

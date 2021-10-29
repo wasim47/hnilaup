@@ -14,9 +14,9 @@
                             </ol>
                         </div>
                         <div class="col-sm-7 breadcrumb pull-right" style="float:right; text-align:right">
-                          <a  href="javascript:void()" onclick="permissions('managements','1');" style="color:#000; margin-right:20px;" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Approved</a>
-                          <a  href="javascript:void()" onclick="permissions('managements','0');" style="color:#000; margin-right:20px;" class="btn btn-warning btn-sm"><i class="fa fa-times"></i> Disapproved</a>
-                          <a  href="javascript:void()" onclick="deletedata('masterdelete','managements');" style="color:#fff; margin-right:20px;" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Multiple Delete</a>
+                          <a  href="javascript:void()" onclick="permissions('management','1');" style="color:#000; margin-right:20px;" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Approved</a>
+                          <a  href="javascript:void()" onclick="permissions('management','0');" style="color:#000; margin-right:20px;" class="btn btn-warning btn-sm"><i class="fa fa-times"></i> Disapproved</a>
+                          <a  href="javascript:void()" onclick="deletedata('masterdelete','management');" style="color:#fff; margin-right:20px;" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Multiple Delete</a>
                           <a  href="{{ route('management.create') }}" style="color:#fff; margin-right:20px" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Create New Management</a>
                       </div>
                 </div>
@@ -70,7 +70,7 @@
                               </div>
                               <div style="width:50%; float:left">
                               	  <button type="button" class="btn btn-danger" style="font-size: 12px; float:left; padding:3px 5px"
-                                    onclick="deleteSingle('<?php echo $management->id;?>','masterdelete','managements')"><i class="fa fa-trash"></i></button>
+                                    onclick="deleteSingle('<?php echo $management->id;?>','masterdelete','management')"><i class="fa fa-trash"></i></button>
                               </div>
                               </td>
                             </tr>
