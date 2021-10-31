@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Eishop')
+@section('title', 'Member List')
 
 @section('sidebar')
     @parent
@@ -13,7 +13,7 @@
           <div class="content-section">
    			 <div class="col-sm-12 col-xs-12" style="margin:0; padding:0 3px">
              	 <div class="content-section-header left">
-                	<h2 class="title">Employees Details List</h2>
+                	<h2 class="title" style="padding:10px; margin:10px; float:left">Member List</h2>
                     <div class="col-sm-12">
                             @if($allemployee!="")
                                     <table id="responsive-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">

@@ -161,6 +161,16 @@ class ProfileController extends Controller
     }
 	
 	
+	public function printdata($id)
+    {		
+		$userid = Auth::guard('secretary')->user()->id;		
+		$custominfo = Secretary::where('id',$userid)->first();		
+		$menus = Menu::all();
+		$contactus = Content::where('menu_id',1)->first();	
+        $userinfo = UnionInformation::find($id);
+		
+        return view('frontend.secretary.print',compact('contactus','custominfo','menus','userid','userinfo'));
+    }
 	
 	
 	public function imageResize($file, $path, $filename, $width, $height)

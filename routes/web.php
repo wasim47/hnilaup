@@ -52,6 +52,7 @@ Route::group(['prefix' => 'secretary',  'namespace' => 'Secretary', 'middleware'
 	Route::post('/secretaryprofile', 'ProfileController@updateProfile')->name('secretary.updateprofile');	
 	Route::post('/change-password', 'ProfileController@updatepassword')->name('secretary.passwordupdate');
     Route::post('logout', 'Auth\LoginController@logout')->name('secretary.logout');
+	Route::get('/printinfo/{id}', 'ProfileController@printdata')->name('secretary.printinfo');	
 });
 
 

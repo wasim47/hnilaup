@@ -65,6 +65,7 @@
                                     </li>
                                 @endforeach
                             </ul>
+                            <a href="{{ route('employee') }}">View List</a>
                         </div>
                     </div>
                     @endif
@@ -80,7 +81,16 @@
                         <div class="grid">
                         	<ul>
                             	@foreach($usefulllinks as $links)
-                            		<li><a href="{{ $links->links }}">
+                                	@php
+                                    	if($links->type =='url'){
+                                    		$urls = $links->links;
+                                        }
+                                        else{
+                                        	$urls = route('secretary.login');
+                                        }
+                                    @endphp
+                            		<li>
+                                    <a href="{{ $urls }}">
                                         <img src="{{ asset('uploads/links/'.$links->image) }}" />
                                         <h4 class="name">{{ $links->name }}</h4>
                                     </a></li>
@@ -161,19 +171,19 @@
                      @if(count($noticetype) > 0)
                      	@foreach($noticetype as $noticet)  
                         	
-                            <div class="box" style="max-height:200px;">                    	
+                            <div class="box">                    	
                             <header class="section-header">
                               <h3>{{ $noticet->name }}</h3>
                             </header>
-                            <div class="lists">
-                                <marquee scrollamount="2" scrolldelay="2" direction="up" behavior="scroll" id="marque{{ $noticet->id }}"
-                                onmouseover="document.getElementById('marque{{ $noticet->id }}').stop();" onmouseout="document.getElementById('marque{{ $noticet->id }}').start();">
+                            <div class="lists" style="max-height:250px; overflow:auto">
+                                <!--<marquee scrollamount="2" scrolldelay="2" direction="up" behavior="scroll" id="marque{{ $noticet->id }}"
+                                onmouseover="document.getElementById('marque{{ $noticet->id }}').stop();" onmouseout="document.getElementById('marque{{ $noticet->id }}').start();">-->
                                 <ul>
                                     @foreach($noticet->items  as $notice)
                                         <li><a href="{{ route('notice', $notice->id) }}">{{ $notice->name }}</a></li>
                                     @endforeach
                                 </ul>
-                                </marquee>
+                                <!--</marquee>-->
                             </div>
                         </div>
                         @endforeach

@@ -13,9 +13,7 @@
     
         <section id="about" class="inner-page pt-4">
           <div class="container">
-            	<form class="form-horizontal" method="POST" action="{{ route('secretary.login') }}">
-                                {{ csrf_field() }}
-                                
+          <div class="col-sm-12" style="float:left; margin-top:10px;">
                                 @if (session('message'))
                                 @if (session('message')=="success")
                                     <div class="alert alert-success">
@@ -27,7 +25,10 @@
                                     </div>
                                 @endif
                             @endif
-                            
+                            </div>
+            	<form class="form-horizontal" method="POST" action="{{ route('secretary.login') }}">
+                                {{ csrf_field() }}
+                                
                               <div class="col-lg-4 offset-4">
                             		<div class="row">                                    	
                               			<h4 style="margin:20px 10px;">Login</h4>                                    
