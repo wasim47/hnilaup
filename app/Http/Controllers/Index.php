@@ -11,6 +11,7 @@ use App\Gallery;
 use App\NoticeType;
 use App\Notice;
 use App\Management;
+use App\UnionInformation;
 use App\Employee;
 use App\VideoGallery;
 use App\Usefulllink;
@@ -24,9 +25,7 @@ class Index extends Controller
 	
     public function index()
     {      
-		$menus = Menu::where('parent_id',NULL)->get();	
 		$banners = Banner::where('status',1)->get();
-		$contactus = Content::where('menu_id',1)->first();		
 		$charmanmessage = Management::where('sequence',1)->orderBy('id','DESC')->first();	
 		$ministrymessage = Management::where('sequence',2)->orderBy('id','DESC')->first();	
 		
@@ -39,7 +38,8 @@ class Index extends Controller
 		$videogalleries = VideoGallery::where('status',1)->orderBy('id', 'DESC')->get();
 		$usefulllinks = Usefulllink::orderBy('id', 'DESC')->get();
 		 
-		return view('frontend.home',compact('menus','banners','charmanmessage','ministrymessage','members','contactus','generalnotices','noticetype','galleries','videogalleries','usefulllinks'));
+		return view('frontend.home',compact('banners','charmanmessage','ministrymessage','members','generalnotices',
+		'noticetype','galleries','videogalleries','usefulllinks'));
     }
 	
 	public function contents()
@@ -47,8 +47,7 @@ class Index extends Controller
 		$slug = request()->segment(2);
 		$sslug = request()->segment(3);
 		$ssslug = request()->segment(4);
-		$contactus = Content::where('menu_id',1)->first();	
-		$menus = Menu::where('parent_id',NULL)->get();
+		
 		
 		if($slug!='' && $sslug!='' && $ssslug!=""){
 			$getParentID = Menu::where('uri', $ssslug)->select('parent_id','sparent_id')->first();
@@ -68,60 +67,118 @@ class Index extends Controller
 		
 		$articles = Content::where('menu_id',$menuslug->id)->first();			
 		$allsubmenus = Menu::where('parent_id', $menuslug->id);			
-		return view('frontend.article',compact('articles','menus','menuslug','allsubmenus','contactus'));
+		return view('frontend.article',compact('articles','menuslug','allsubmenus'));
     }
 	
-	public function service_details($id)
+	
+	public function messages($id)
     {      
-		$menus = Menu::where('parent_id',NULL)->get();		
-		$services = Notice::where('id',$id)->first();	
-		$contactus = Content::where('menu_id',1)->first();				
-		return view('frontend.service',compact('menus','services','contactus'));
+		$messages = Management::where('id',$id)->first();
+		return view('frontend.message_details',compact('messages'));
+    }
+	
+	public function holdinginfo(Request $request)
+    {      
+	
+		$query = UnionInformation::query();
+		if($request->has('linksid')){
+			$linksid = $request->linksid;
+			$query->where('usefulllink_id',$linksid);
+		}
+		$unioninformation = $query->paginate(50);
+		
+		//$unioninformation = UnionInformation::paginate(50);		
+		$links = Usefulllink::orderBy('id','DESC')->get();
+		return view('frontend.holdinginfo',compact('unioninformation','links'));
+    }
+	
+	public function notice()
+    {      
+		$notices = Notice::paginate(50);	
+		return view('frontend.notice',compact('notices'));
+    }
+	public function notice_details($id)
+    {      
+		$notices = Notice::where('id',$id)->first();	
+		$relnotices = Notice::all();
+		return view('frontend.notice_details',compact('notices','relnotices'));
     }
 			
 	public function management(Request $req)
     {      
-		$menus = Menu::where('parent_id',NULL)->get();
 		$managements = Management::all();					
-		$contactus = Content::where('menu_id',1)->first();	
-		return view('frontend.management',compact('managements','menus','contactus'));
+		return view('frontend.management',compact('managements'));
     }
 	
 	public function employee(Request $req)
     {      
-		$menus = Menu::where('parent_id',NULL)->get();		
 		$allemployee = Employee::orderBy('id','desc')->get();
-		$contactus = Content::where('menu_id',1)->first();	
-		return view('frontend.employee',compact('menus','allemployee','contactus'));
+		return view('frontend.employee',compact('allemployee'));
+    }
+	public function employee_details($id)
+    {      
+		$employee = Employee::where('id',$id)->first();
+		return view('frontend.employee_details',compact('employee'));
     }
 	
 	
 	public function getDownload($name,$files)
 	{
-		$file= "uploads/report/".$files;
-	
-		$headers = array('Content-Type: application/pdf');
-	
+		$file= "uploads/report/".$files;	
+		$headers = array('Content-Type: application/pdf');	
 		return Response::download($file, $files, $headers);
 	}
 	
 	
 	public function photos(Request $req)
     {      
-		$menus = Menu::where('parent_id',NULL)->get();	
-		$contactus = Content::where('menu_id',1)->first();		
 		$photos = Gallery::all();				
-		return view('frontend.photos',compact('menus','photos','contactus'));
+		return view('frontend.photos',compact('photos'));
     }
 	
 	
 	
 	public function videos(Request $req)
     {      
-		$menus = Menu::where('parent_id',NULL)->get();	
-		$contactus = Content::where('menu_id',1)->first();		
 		$videos = VideoGallery::all();				
-		return view('frontend.videos',compact('menus','videos','contactus'));
+		return view('frontend.videos',compact('videos'));
+    }
+	
+	
+	public function getAjaxUserData(Request $request)
+    {		
+		$holdingno = $request->holdingno;
+		$wordno = $request->wordno;
+		$usefulllink_id = $request->usefulllink_id;
+		
+		$query = UnionInformation::query();
+		
+		if($holdingno!="" && $wordno!="" && $usefulllink_id!=""){
+			$query->where('holding_no',$holdingno)->where('wordno',$wordno)->where('usefulllink_id',$usefulllink_id);
+		}
+		elseif($holdingno!="" && $wordno!="" && $usefulllink_id==""){
+			$query->where('holding_no',$holdingno)->where('wordno',$wordno);
+		}
+		
+		elseif($holdingno!="" && $wordno=="" && $usefulllink_id!=""){
+			$query->where('holding_no',$holdingno)->where('usefulllink_id',$usefulllink_id);
+		}
+		elseif($holdingno=="" && $wordno!="" && $usefulllink_id!=""){
+			$query->where('usefulllink_id',$usefulllink_id)->where('wordno',$wordno);
+		}
+		
+		elseif($holdingno!="" && $wordno=="" && $usefulllink_id==""){
+			$query->where('holding_no',$holdingno);
+		}
+		elseif($holdingno=="" && $wordno!="" && $usefulllink_id==""){
+			$query->where('wordno',$wordno);
+		}
+		elseif($holdingno=="" && $wordno=="" && $usefulllink_id!=""){
+			$query->where('usefulllink_id',$usefulllink_id);
+		}
+		$unioninformation = $query->get();		
+        
+		return view('frontend.ajaxdata',compact('unioninformation'));
     }
 	
 

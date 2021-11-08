@@ -1,5 +1,5 @@
 @extends('admin.include.master') 
-	@section('title') New Gallery - ToonBD @endsection 
+	@section('title') New Gallery - HNILAUP @endsection 
 @section('content')
 
 	<div class="layout-content">

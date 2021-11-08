@@ -8,4 +8,6 @@ class Usefulllink extends Model
 {
 
 	protected $fillable = ['name','links','image','type'];
+	
+	
 }

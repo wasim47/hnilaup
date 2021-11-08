@@ -20,9 +20,9 @@ jQuery(document).ready(function(){
 
         jsfolder:jsFolder,
 
-       width:1500,
+       width:1024,
 
-        height:500,
+        height:600,
 
         skinsfoldername:"",
 
@@ -272,7 +272,7 @@ jQuery(document).ready(function(){
 
         navimage:"bullet-12-12-0.png",
 
-        texteffectdelay2:1500,
+        texteffectdelay2:1024,
 
         texteffectduration1:600,
 

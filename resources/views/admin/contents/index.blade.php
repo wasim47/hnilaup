@@ -1,5 +1,5 @@
 @extends('admin.include.master') 
-	@section('title') Contents - ToonBD @endsection 
+	@section('title') Contents - HNILAUP @endsection 
 @section('content')
 
   <link href="{{ asset('/app-assets/plugins/datatables/datatables.css') }}" rel="stylesheet" type="text/css">

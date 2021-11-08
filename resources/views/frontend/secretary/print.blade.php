@@ -75,6 +75,10 @@ body {
         <td>হোল্ডিং নং</td>            
         <td>{{ $userinfo->holding_no }}</td>
     </tr>
+    <tr>
+        <td>ওয়ার্ড নং</td>            
+        <td>{{ $userinfo->wordno }}</td>
+    </tr>
     
     <tr>
         <td>জমির পরিমাণ</td>            

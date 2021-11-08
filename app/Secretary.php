@@ -9,4 +9,6 @@ class Secretary extends Authenticatable
 	use Notifiable;
 		
 	protected $fillable = ['fullname', 'email', 'contact','designation','address','password','password_hints', 'photo'];
+	
+	
 }

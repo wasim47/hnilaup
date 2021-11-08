@@ -1,5 +1,5 @@
  @extends('admin.include.master') 
-	@section('title') New Usefull Link Entry - ToonBD @endsection 
+	@section('title') New Usefull Link Entry - HNILAUP @endsection 
 @section('content')
 
  

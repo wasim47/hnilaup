@@ -1,5 +1,5 @@
 @extends('admin.include.master') 
-	@section('title') Menu - ToonBD @endsection 
+	@section('title') Menu - HNILAUP @endsection 
 @section('content')
 
   <link href="{{ asset('/app-assets/plugins/datatables/datatables.css') }}" rel="stylesheet" type="text/css">
@@ -71,7 +71,9 @@
                           <select name="page_structure" class="form-control">
                           	<option value="Text">Text</option> 
                             <option value="notice">Notice</option> 
+                            <option value="holdinginfo">Holding Info</option> 
                             <option value="members">Member</option> 
+                            <option value="management">Messages</option> 
                             <option value="videos">Video Gallery</option> 
                             <option value="photos">Photo Gallery</option>                          
                           </select>

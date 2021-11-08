@@ -19,6 +19,7 @@
         "laravelcollective/html": "^5.8",
         "maatwebsite/excel": "^3.1",
         "nicolaslopezj/searchable": "^1.12",
+        "rap2hpoutre/fast-excel": "^3.1",
         "spatie/browsershot": "^3.37"
     },
     "require-dev": {

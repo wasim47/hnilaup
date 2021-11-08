@@ -1,5 +1,5 @@
 @extends('admin.include.master') 
-	@section('title') Today Submission - ToonBD @endsection 
+	@section('title') Today Submission - HNILAUP @endsection 
 @section('content')
 
   <link href="{{ asset('/app-assets/plugins/datatables/datatables.css') }}" rel="stylesheet" type="text/css">
@@ -74,7 +74,9 @@
                           <select name="page_structure" class="form-control">
                           	<option value="Text">Text</option> 
                             <option value="notice">Notice</option> 
+                            <option value="holdinginfo">Holding Info</option> 
                             <option value="members">Member</option> 
+                            <option value="management">Messages</option> 
                             <option value="videos">Video Gallery</option> 
                             <option value="photos">Photo Gallery</option>                            
                           </select>
@@ -105,32 +107,3 @@
 	</div>
   </div>
 @endsection
-
-<script>
-function ajaxSearch(id)
-{
-	  var surl = '{{ route("menu.ajaxmenu") }}';
-	  $.ajax({
-		type: "GET",
-		url: surl,
-		data: {'colid':id},
-
-		cache: false,
-		beforeSend: function(){
-			$('#LoadingImageE').show();
-		},
-		complete: function(){
-			$('#LoadingImageE').hide();
-		},
-		success: function(response) {
-			  //console.log(response);
-			  $('#subparentid').html(response);
-			  $("#LoadingImageE").hide();
-		},
-		error: function (xhr, status) {
-		  $("#LoadingImageE").hide();
-		  alert('Unknown error ' + status);
-		}
-	  });
-}
-</script>

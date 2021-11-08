@@ -1,5 +1,5 @@
  @extends('admin.include.master') 
-	@section('title') Admin List - ToonBD @endsection 
+	@section('title') Admin List - HNILAUP @endsection 
 @section('content')
 
  

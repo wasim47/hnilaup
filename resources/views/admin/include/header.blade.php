@@ -2,7 +2,7 @@
       <div class="navbar navbar-default">
         <div class="navbar-header">
           <a class="navbar-brand navbar-brand-center" href="{{route('home')}}" target="_blank" style="width:100%; padding:0; margin:0 0 20px 0; text-align:center;">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="ToonBD" style="width:auto; height:50px;">
+            <img src="{{ asset('assets/img/logo.png') }}" alt="HNILAUP" style="width:auto; height:50px;">
           </a>
           <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#sidenav">
             <span class="sr-only">Toggle navigation</span>
@@ -122,6 +122,12 @@
                           </ul>
                         </li>
                         
+                         <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Latest Update</span></a>
+                          <ul class="sidenav-subnav collapse">
+                            <li><a href="{{ route('news.index')}}"><span class="sidenav-icon fa fa-bars"></span>Update List</a></li>
+                            <li><a href="{{ route('news.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Update</a></li>
+                          </ul>
+                        </li>
                                                 
                         <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true"><span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Messages</span></a>
                           <ul class="sidenav-subnav collapse">
@@ -130,6 +136,30 @@
                           </ul>
                         </li>
                                                
+                        
+                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
+                        <span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Documents</span></a>
+                          <ul class="sidenav-subnav collapse">
+                            <li><a href="{{ route('documents.index')}}"><span class="sidenav-icon fa fa-bars"></span>Document List</a></li>
+                            <li><a href="{{ route('documents.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Document</a></li>
+                          </ul>
+                        </li>
+                        
+                         <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
+                        <span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Money Receipt</span></a>
+                          <ul class="sidenav-subnav collapse">
+                            <li><a href="{{ route('receipt.index')}}"><span class="sidenav-icon fa fa-bars"></span>Receipt List</a></li>
+                            <li><a href="{{ route('receipt.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New Receipt</a></li>
+                          </ul>
+                        </li>
+                        
+                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
+                        <span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Holding Info</span></a>
+                          <ul class="sidenav-subnav collapse">
+                            <li><a href="{{ route('holdinginfo.index')}}"><span class="sidenav-icon fa fa-bars"></span>User List</a></li>
+                            <li><a href="{{ route('holdinginfo.create')}}"><span class="sidenav-icon fa fa-plus"></span>Add New User</a></li>
+                          </ul>
+                        </li>
                         
                          <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
                         <span class="sidenav-icon fa fa-map"></span><span class="sidenav-label">Members</span></a>
@@ -156,11 +186,28 @@
                       </ul>
                     </li>
                         
-                         <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
+                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
+                        <span class="sidenav-icon fa fa-user"></span><span class="sidenav-label">Logo</span></a>
+                          <ul class="sidenav-subnav collapse">
+                            <li><a href="{{ route('logo.index')}}"><span class="sidenav-icon fa fa-bars"></span>Logo List</a></li>
+                            <li><a href="{{ route('logo.create')}}"><span class="sidenav-icon fa fa-plus"></span>New Logo</a></li>
+                          </ul>
+                        </li>
+                        
+                        
+                        <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
                         <span class="sidenav-icon fa fa-user"></span><span class="sidenav-label">Banner</span></a>
                           <ul class="sidenav-subnav collapse">
-                            <li><a href="{{ route('banner.index')}}"><span class="sidenav-icon fa fa-bars"></span>Banner List</a></li>
-                            <li><a href="{{ route('banner.create')}}"><span class="sidenav-icon fa fa-plus"></span>New Banner</a></li>
+                            <li><a href="{{ route('fixbanner.index')}}"><span class="sidenav-icon fa fa-bars"></span>Banner List</a></li>
+                            <li><a href="{{ route('fixbanner.create')}}"><span class="sidenav-icon fa fa-plus"></span>New Banner</a></li>
+                          </ul>
+                        </li>  
+                        
+                         <li class="sidenav-item has-subnav"><a href="#" aria-haspopup="true">
+                        <span class="sidenav-icon fa fa-user"></span><span class="sidenav-label">Slider</span></a>
+                          <ul class="sidenav-subnav collapse">
+                            <li><a href="{{ route('banner.index')}}"><span class="sidenav-icon fa fa-bars"></span>Slider List</a></li>
+                            <li><a href="{{ route('banner.create')}}"><span class="sidenav-icon fa fa-plus"></span>New Slider</a></li>
                           </ul>
                         </li>  
                            

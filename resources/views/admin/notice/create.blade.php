@@ -1,5 +1,5 @@
 @extends('admin.include.master') 
-	@section('title') New Notice - ToonBDs @endsection 
+	@section('title') New Notice - HNILAUPs @endsection 
 @section('content')
 
 	<div class="layout-content">

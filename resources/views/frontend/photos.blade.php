@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Eishop')
+@section('title', 'ফটো গ্যালারী')
 
 @section('sidebar')
     @parent
@@ -9,19 +9,15 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css');
 </style>
 @section('content')
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
 	<main id="main">
-    	 <section class="breadcrumbs">
-          <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-              <h2>Photo Gallery</h2>
-              <ol>
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li>Photo Gallery</li>
-              </ol>
-            </div>
-          </div>
-        </section>
+    	 
          <section id="services" class="section-bg">
+         	<div class="container">
+             <div class="col-sm-12" style=" float:left; margin:20px 0;"><h2>ফটো গ্যালারী</h2></div>
+          </div>
+          
+          
               <div class="container">
                 <div class="row">
                         @if($photos!="")

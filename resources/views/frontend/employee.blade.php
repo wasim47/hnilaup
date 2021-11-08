@@ -11,12 +11,12 @@
 @section('content')
 	 <div id="page" class="page">
           <div class="content-section">
-   			 <div class="col-sm-12 col-xs-12" style="margin:0; padding:0 3px">
-             	 <div class="content-section-header left">
-                	<h2 class="title" style="padding:10px; margin:10px; float:left">Member List</h2>
+                	<div class="row">
                     <div class="col-sm-12">
+                    	
+                        	<h2 class="title" style="padding:10px 0; margin:10px 0; float:left">Member List</h2>
                             @if($allemployee!="")
-                                    <table id="responsive-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                              <table id="responsive-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead style="background:#C1DFFD;">
                                     <tr>
                                       <th width="4%">SI</th>
@@ -49,9 +49,8 @@
             				</tbody>
                       </table>
                             @endif
+                        </div>
                       </div>
-                </div>
-            </div>
     	  </div>
   	</div>
 @endsection

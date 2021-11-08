@@ -50,13 +50,13 @@
         <div class="row">        	 
           <div class="col-lg-2" style="margin:0; padding:0">
             <ul class="nav nav-tabs flex-column">
-              <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#tab-1" style="color:#333">{{ trans('app.profile') }}</a></li>
-              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-2" style="color:#333">User List</a></li>  
-              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-5" style="color:#333">{{ trans('app.update').' '.trans('app.profile') }}</a></li>              
-              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-6" style="color:#333">{{ trans('app.change').' '.trans('app.Password') }}</a></li>
+              <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#tab-1" style="color:#333">আমার অ্যাকাউন্ট</a></li>
+              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-2" style="color:#333" id="triggerclick">হোল্ডিং তথ্য সমূহ</a></li>  
+              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-5" style="color:#333">তথ্য পরিবর্তন করুন</a></li>              
+              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-6" style="color:#333">পাসওয়ার্ড  পরিবর্তন করুন</a></li>
               
               <li class="nav-item"><a href="{{ route('secretary.logout') }}" class="nav-link"  style="color:#333"
-                  onClick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ trans('app.logout') }}</a>
+                  onClick="event.preventDefault(); document.getElementById('logout-form').submit();">লগআউট করুন</a>
                   <form id="logout-form" action="{{ route('secretary.logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                </li>
             </ul>
@@ -103,21 +103,43 @@
               <div class="tab-pane" id="tab-2">
                 <div class="row">
                   <div class="col-lg-12 details order-2 order-lg-1">
-                  		<div class="col-sm-12 breadcrumb pull-right" style="float:right; text-align:right">
                         
-                          
-                          <a href="javascript:void(0)" class="btn btn-primary btn-sm" style="font-size: 14px; float:left; margin-right:5px;" title="New User" 
+                        
+                        <div class="row breadcrumb">
+                          <div class="col-sm-2">
+                          	 <a href="javascript:void(0)" class="btn btn-primary btn-sm" style="font-size: 14px; float:left; margin-right:5px;" title="New User" 
                             data-toggle="modal" data-target="#newUsers">নতুন এন্ট্রি</a>
-                            
-                             <!--<form action="#">
-                                <div style="width:90%; float:left"><input type="text" name="keywords" id="keywords" class="form-control" 
-                                    style="height:30px; padding:5px; margin-right:5px; float:left; font-size:13px;" placeholder="Holdings No." /></div>
-                                    <div style="width:10%; float:left"><button type="button" class="btn btn-primary btn-sm" onclick="filterData();">{{ trans('app.search') }}</button></div>
-                                    </form>-->
-                              </div>
-                        <table width="100%" class="table table-bordered table-striped">
+                          </div>
+                          <div class="col-sm-2">
+                          	মোটঃ- <span id="totalvalue">{{ count($unioninformation) }}</span>
+                          </div>
+                         <div class="col-sm-8">
+                                <div style="width:25%; float:left">
+                                        <select name="usefulllink_id" id="usefulllink_id" class="form-control" required>
+                                            <option value="">সেবা সমূহ</option>
+                                            @foreach($links as $link)
+                                             <option value="{{ $link->id }}">{{  $link->name  }}</option>
+                                            @endforeach
+                                        </select>
+                                </div>
+                                <div style="width:25%; float:left">
+                                	<input type="text" name="holdingno" id="holdingno" class="form-control" placeholder="হোল্ডিং নং" />
+                                </div>
+                                <div style="width:25%; float:left">
+                                	<input type="text" name="wordno" id="wordno" class="form-control" placeholder="ওয়ার্ড নং" />
+                                </div>
+                                <div style="width:25%; float:left"><button type="button" class="btn btn-primary btn-sm" onclick="ajaxSearch();">অনুসন্ধান করুন</button></div>
+                                   
+                         </div>
+                        </div>  
+                        <div class="row"> 
+                        	<div id="responsedata">
+                              <div style="overflow-x:auto; max-width:1024px;"> 
+                        		<table width="100%" class="table table-bordered table-striped">
                                  <thead>
-                                    <tr>                                      
+                                    <tr>             
+                                      <th>সচিব</th>
+                                      <th>সেবা</th>                         
                                       <th>কর দাতার নাম</th>
                                       <th>পিতা/স্বামীর নাম</th>
                                       <th>গ্রাম</th>
@@ -125,10 +147,11 @@
                                       <td>এন আইডি নং</td>
                                       <td>জমির পরিমাণ</td>
                                       <th>হোল্ডিং নং</th>
+                                      <th>ওয়ার্ড নং</th>
                                       <td>বসত বাড়ির ধরণ</td>
                                       <td>বাৎসরিক কার্য কৃত কর</td>
                                       <td>অর্থ বছর</td>  
-                                      <th>Action</th>
+                                      <th>অ্যাকশান</th>
                                    </tr>
                                 </thead>
                                 <tbody>
@@ -136,7 +159,9 @@
                                 @foreach($unioninformation as $k=>$menu)
                                 <?php $i++; 
                                 ?>
-                                <tr id="tablerow<?php echo $menu->id;?>" class="tablerow">	                                    
+                                <tr id="tablerow<?php echo $menu->id;?>" class="tablerow">	
+                                    <td>@if($menu->secretaries) {{ $menu->secretaries->fullname }} @endif</td>
+                                    <td>@if($menu->usefulllinks) {{ $menu->usefulllinks->name }} @endif</td>                                    
                                     <td>{{ $menu->name }}</td>
                                     <td>{{ $menu->spouse_name }}</td>
                                     <td>{{ $menu->village }}</td>
@@ -144,6 +169,7 @@
                                     <td>{{ $menu->nid }}</td>
                                     <td>{{ $menu->land }}</td>
                                     <td>{{ $menu->holding_no }}</td>
+                                    <td>{{ $menu->wordno }}</td>
                                     <td>{{ $menu->house_type }}</td>
                                     <td>{{ $menu->yearly_tax }}</td>
                                     <td>{{ $menu->budget_year }}</td>
@@ -198,6 +224,10 @@
                                                 <tr>
                                                     <td>হোল্ডিং নং</td>            
                                                     <td>{{ $menu->holding_no }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ওয়ার্ড নং</td>            
+                                                    <td>{{ $menu->wordno }}</td>
                                                 </tr>
                                                 
                                                 <tr>
@@ -256,6 +286,22 @@
                                                 @csrf 				
                                                 <table width="100%" border="0" class="table-bordered table">
                                                     <tr>
+                                                        <td>সেবা সমূহ<span style="color:#ff0000; font-size:20px;">*</span></td>            
+                                                        <td>
+                                                            <select name="usefulllink_id" class="form-control" required>
+                                                                <option value="">Select</option>
+                                                                @foreach($links as $link)
+                                                                 <option value="{{ $link->id }}">{{  $link->name  }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @if ($errors->has('usefulllink_id'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $errors->first('usefulllink_id') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>কর দাতার নাম<span style="color:#ff0000; font-size:20px;">*</span></td>            
                                                         <td>
                                                             <input id="name" type="text" class="form-control" name="name" value="{{ $menu->name }}" required>
@@ -303,6 +349,12 @@
                                                         <td>হোল্ডিং নং</td>            
                                                         <td>
                                                             <input id="holding_no" type="text" class="form-control" name="holding_no" value="{{ $menu->holding_no }}"> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>ওয়ার্ড নং</td>            
+                                                        <td>
+                                                            <input id="wordno" type="text" class="form-control" name="wordno" value="{{ $menu->wordno }}"> 
                                                         </td>
                                                     </tr>
                                                     
@@ -356,9 +408,12 @@
                                 </tr>
                                  
                                 @endforeach
-                                 <tr><td colspan="10">{{ $unioninformation->links() }}</td></tr>
+                                 <tr><td colspan="14">{{ $unioninformation->links() }}</td></tr>
                                 </tbody>   
                              </table>
+                              </div>
+                            </div>
+                       </div>
                   </div>                  
                 </div>
               </div>
@@ -504,6 +559,22 @@
                   
                 <table width="100%" border="0" class="table-bordered table">
                     <tr>
+                        <td>সেবা সমূহ<span style="color:#ff0000; font-size:20px;">*</span></td>            
+                        <td>
+                            <select name="usefulllink_id" class="form-control" required>
+                                <option value="">Select</option>
+                                @foreach($links as $link)
+                                 <option value="{{ $link->id }}">{{  $link->name  }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('usefulllink_id'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('usefulllink_id') }}</strong>
+                                </span>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
                         <td>কর দাতার নাম<span style="color:#ff0000; font-size:20px;">*</span></td>            
                         <td>
                             <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
@@ -553,6 +624,12 @@
                             <input id="holding_no" type="text" class="form-control" name="holding_no"> 
                         </td>
                     </tr>
+                    <tr>
+                        <td>ওয়ার্ড নং</td>            
+                        <td>
+                            <input id="wordno" type="text" class="form-control" name="wordno"> 
+                        </td>
+                    </tr>
                     
                     <tr>
                         <td>জমির পরিমাণ</td>            
@@ -597,5 +674,42 @@
 @endsection
 
 @section('footer')
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function ajaxSearch()
+{
+	  var holdingno = $("#holdingno").val();
+	  var wordno = $("#wordno").val();
+	  var usefulllink_id = $("#usefulllink_id").val();
+	  var surl = '{{ route("userdata.ajaxsearch") }}';
+	  $.ajax({
+		type: "GET",
+		url: surl,
+		data: {'holdingno':holdingno,'wordno':wordno,'usefulllink_id':usefulllink_id},
+
+		cache: false,
+		beforeSend: function(){
+			$('#LoadingImageE').show();
+		},
+		complete: function(){
+			$('#LoadingImageE').hide();
+		},
+		success: function(response) {
+			  $('#responsedata').html(response);
+			  $("#LoadingImageE").hide();
+		},
+		error: function (xhr, status) {
+		  $("#LoadingImageE").hide();
+		  alert('Unknown error ' + status);
+		}
+	  });
+}
+
+$(document).ready(function(){
+	$('#triggerclick').trigger('click');
+});
+</script>
+
     @parent
 @endsection

@@ -1,26 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'Eishop')
+@section('title', 'ভিডিও গ্যালারী')
 
 @section('sidebar')
     @parent
 @endsection
 
 @section('content')
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
 	<main id="main">
-    	 <section class="breadcrumbs">
-          <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-              <h2>Video Gallery</h2>
-              <ol>
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li>Video Gallery</li>
-              </ol>
-            </div>
-          </div>
-        </section>
+    	 
          <section id="services" class="section-bg">
               <div class="container">
+              <div class="col-sm-12" style=" float:left; margin:20px 0;"><h2>ভিডিও গ্যালারী</h2></div>
                 <div class="row">
                             @if($videos!="")
                                 <?php $i=0; ?>

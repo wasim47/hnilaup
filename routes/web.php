@@ -16,10 +16,16 @@
 });*/
 Route::get('/', 'Index@index')-> name('home');
 Route::get('management', 'Index@management')->name('management');
-Route::get('notice/{id}', 'Index@service_details')->name('notice');
+Route::get('messages/{id}', 'Index@messages')->name('management.details');
+Route::get('holdinginfo', 'Index@holdinginfo')->name('holdinginfo');
+
 Route::get('photos', 'Index@photos')->name('photos');
 Route::get('videos', 'Index@videos')->name('videos');
-Route::get('employee', 'Index@employee')->name('employee');
+Route::get('members', 'Index@employee')->name('members');
+Route::get('employee/{id}', 'Index@employee_details')->name('employee.details');
+
+Route::get('notice', 'Index@notice')->name('notice');
+Route::get('notice/{id}', 'Index@notice_details')->name('notice.details');
 
 Route::get('content', 'Index@index')->name('home');
 Route::get('content/{slug}', 'Index@contents')->name('websitecontent');
@@ -30,6 +36,7 @@ Route::any('userapprove', 'CommonController@permissions')->name('user.approve');
 Route::any('usersapprove', 'CommonController@permissionsUser')->name('users.approve');
 Route::get('testingdata', 'CommonController@updateSlug');
 Route::any('masterdelete', 'CommonController@deletedata')->name('masterdelete');
+Route::get('holdingsearch','Index@getAjaxUserData')->name('frontend.ajaxsearch');
 
 
 Route::group(['prefix' => 'secretary', 'namespace' => 'Secretary'], function () {
@@ -53,6 +60,9 @@ Route::group(['prefix' => 'secretary',  'namespace' => 'Secretary', 'middleware'
 	Route::post('/change-password', 'ProfileController@updatepassword')->name('secretary.passwordupdate');
     Route::post('logout', 'Auth\LoginController@logout')->name('secretary.logout');
 	Route::get('/printinfo/{id}', 'ProfileController@printdata')->name('secretary.printinfo');	
+	
+	
+	Route::get('/ajaxsearch','ProfileController@getAjaxUserData')->name('userdata.ajaxsearch');
 });
 
 
@@ -86,6 +96,7 @@ Route::group(['prefix' => 'administration',  'middleware' => 'auth:administratio
 	Route::resource('menus','MenusController');
 	Route::resource('contents','ContentController');
 	Route::resource('banner','BannerController');
+	Route::resource('logo','LogoController');
 	Route::resource('employee','EmployeeController');
 	Route::resource('usefulllink','UsefulllinkController');
 	Route::resource('noticetype','NoticetypeController');
@@ -95,5 +106,16 @@ Route::group(['prefix' => 'administration',  'middleware' => 'auth:administratio
 	Route::resource('gallery','GalleryController');
 	Route::resource('video','VideoController');	
 	Route::resource('secretary','SecretaryController');
+	Route::resource('news','NewsController');
+	Route::resource('documents','DocumentController');
+	Route::resource('holdinginfo','HoldinginfoController');
+	Route::resource('receipt','ReceiptController');
+	Route::resource('fixbanner','FixbannerController');
+	Route::get('receipt/print/{id}','ReceiptController@prints')->name('receipt.print');
 	Route::get('/ajaxmenu','MenusController@searchmenu')->name('menu.ajaxmenu');
+	
+	
+	Route::get('/holding/samplefiledownload','CommonController@sampleFileDownload')->name('holding.samplefiledownload');
+	Route::post('/holding/import','CommonController@import')->name('holding.import');
+	Route::get('/holding/export','CommonController@export')->name('holding.export');
 });

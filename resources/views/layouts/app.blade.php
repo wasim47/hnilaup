@@ -38,11 +38,16 @@
         	<div class="container">
                  <header id="header">             	
                         <div class="headertop">
-                              <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt=""></a>
+                        		@if(count($logos) > 0)
+                                	@foreach($logos as $logo)
+                                    	<a href="{{ $logo->url }}"><img src="{{ asset('uploads/logo/'.$logo->image) }}" alt="{{ $logo->name }}"></a>
+                                    @endforeach
+                                @endif
                         </div>
+                        <div class="col-sm-12" style="margin:0; padding:0"><img src="{{ asset('uploads/fixbanner/'.$fixbanner->image) }}" alt="{{ $fixbanner->name }}" style="width:100%; height:auto"></div>
                         <nav class="main-nav float-right d-none d-lg-block">
                             <ul>
-                              <li class="active"><a href="{{ route('home')}}">Home</a></li>
+                              <li class="active"><a href="{{ route('home')}}">হোম</a></li>
                               @foreach($menus as $menu)
                                 <?php
                                     if($menu->page_structure=='Text'){	
@@ -112,16 +117,38 @@
                               @endforeach
                               
                               @if (Auth::guard('secretary')->check())                
-                                  <li style="float:right"><a href="{{ route('secretary.profile') }}">Profile</a></li>
+                                  <li style="float:right"><a href="{{ route('secretary.profile') }}">আমার অ্যাকাউন্ট</a></li>
                                   <li style="float:right"><a href="{{ route('secretary.logout') }}" 
-                                  onClick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                  onClick="event.preventDefault(); document.getElementById('logout-form').submit();">লগআউট</a>
                                   <form id="logout-form" action="{{ route('secretary.logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                                   </li>
                             @else
-                                  <li style="float:right"><i class="bx bx-chevron-right"></i> <a href="{{ route('secretary.login') }}">Login</a></li>
+                                  <li style="float:right"><i class="bx bx-chevron-right"></i> <a href="{{ route('secretary.login') }}">লগইন</a></li>
                             @endif
                             </ul>
                           </nav>
+                        <div class="col-sm-12">
+                        	<div class="updatearea">
+                            	<div class="row">
+                                    <div class="col-sm-2 scroll" style="margin:0; padding:0">
+                                        <div class="scrolling_update">আপডেট</div>
+                                    </div>
+                                    <div class="col-sm-10 scroll" style="margin:0; padding:0;">
+                                        <div class="marquee">
+                                        	<marquee scrollamount="3" scrolldelay="10" direction="left" loop="-1" behavior="scroll" id="marque_header" 
+                                            onmouseover="document.getElementById('marque_header').stop();" onMouseOut="document.getElementById('marque_header').start();">
+                                                <ul>
+                                                    @foreach($latestupdate as $update)
+                                                        <li> <a href="#">{{ $update->name }}</a></li>	
+                                                    @endforeach
+                                                </ul>
+                                            </marquee>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                   </header>
               </div>
     	@show
@@ -139,8 +166,8 @@
             
                       
             
-                      <div class="col-lg-4 col-md-6 footer-links">
-                        <h4>Useful Links</h4>
+                      <div class="col-lg-6 col-md-6 footer-links">
+                        <h5>মেনু</h5	>
                         <ul>
                           @foreach($menus as $menu)
                         <?php
@@ -159,7 +186,7 @@
                         </ul>
                       </div>
             
-                      <div class="col-lg-4 col-md-6 footer-contact">
+                      <!--<div class="col-lg-4 col-md-6 footer-contact">
                       	@if($contactus!="")
                         <h4>{{ $contactus->title }}</h4>
                         <p>
@@ -167,12 +194,12 @@
                         </p>
             			@endif
                         
-                      </div>
-                      <div class="col-lg-4 col-md-6 footer-contact">
-                      	<h4>Follow Us</h4>
+                      </div>-->
+                      <div class="col-lg-6 col-md-6 footer-contact">
+                      	<h5>আমাদের সাথে থাকুন</h5>
             			<div class="social-links">
-                          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
                           <a href="https://www.facebook.com/Toonbdltd/" class="facebook"><i class="fa fa-facebook"></i></a>
+                          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
                           <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
                           <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>            
                         </div>
@@ -183,9 +210,9 @@
                 </div>
             
                 <div class="container">
-                  <div class="copyright">
-                    &copy; Copyright <strong>ToonBD</strong>. All Rights Reserved
-                  </div>
+                  <!--<div class="copyright">
+                    &copy; Copyright <strong>HNILAUP</strong>. All Rights Reserved
+                  </div>-->
                   <div class="credits">
                     Designed by <a href="#">softXmagic</a>
                   </div>

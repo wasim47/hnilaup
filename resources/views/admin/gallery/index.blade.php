@@ -1,5 +1,5 @@
 @extends('admin.include.master')
-	@section('title') Gallery List - ToonBD @endsection
+	@section('title') Gallery List - HNILAUP @endsection
 @section('content')
 	<div class="layout-content">
         <div class="layout-content-body">
@@ -14,9 +14,8 @@
                             </ol>
                         </div>
                         <div class="col-sm-7 breadcrumb pull-right" style="float:right; text-align:right">
-                          <a  href="javascript:void()" onclick="permissions('gallerys','1');" style="color:#000; margin-right:20px;" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Approved</a>
-                          <a  href="javascript:void()" onclick="permissions('gallerys','0');" style="color:#000; margin-right:20px;" class="btn btn-warning btn-sm"><i class="fa fa-times"></i> Disapproved</a>
-                          <a  href="javascript:void()" onclick="deletedata('masterdelete','gallerys');" style="color:#fff; margin-right:20px;" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Multiple Delete</a>
+                         Total: {{ count($allgallery) }}&nbsp;&nbsp;&nbsp;&nbsp;
+                          <a  href="javascript:void()" onclick="deletedata('masterdelete','galleries');" style="color:#fff; margin-right:20px;" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Multiple Delete</a>
                           <a  href="{{ route('gallery.create') }}" style="color:#fff; margin-right:20px" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Create New Gallery</a>
                       </div>
                 </div>
@@ -68,7 +67,7 @@
                               </div>
                               <div style="width:50%; float:left">
                               	  <button type="button" class="btn btn-danger" style="font-size: 12px; float:left; padding:3px 5px"
-                                    onclick="deleteSingle('<?php echo $gallery->id;?>','masterdelete','gallerys')"><i class="fa fa-trash"></i></button>
+                                    onclick="deleteSingle('<?php echo $gallery->id;?>','masterdelete','galleries')"><i class="fa fa-trash"></i></button>
                               </div>
                               </td>
                             </tr>

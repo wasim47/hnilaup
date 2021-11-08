@@ -1,5 +1,5 @@
 @extends('admin.include.master') 
-	@section('title') New Admin - ToonBD @endsection 
+	@section('title') New Admin - HNILAUP @endsection 
 @section('content')
 <style>
 .customtable{

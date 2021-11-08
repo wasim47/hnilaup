@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Secretary;
 use App\UnionInformation;
+use App\Usefulllink;
 use App\Content;
 use App\Menu;
 use Auth;
@@ -24,15 +25,63 @@ class ProfileController extends Controller
 		 $this->middleware('auth:secretary');
     }
 
-    public function index()
+    public function index(Request $request)
     {		
 		$userid = Auth::guard('secretary')->user()->id;		
 		$custominfo = Secretary::where('id',$userid)->first();		
 		$menus = Menu::all();
 		$contactus = Content::where('menu_id',1)->first();	
-		$unioninformation = UnionInformation::where('secretary_id',$userid)->paginate(50);	
+		$links = Usefulllink::orderBy('id','DESC')->get();
 		
-        return view('frontend.secretary.profile',compact('contactus','custominfo','menus','userid','unioninformation'));
+		$query = UnionInformation::where('secretary_id',$userid);
+		if($request->has('linksid')){
+			$linksid = $request->linksid;
+			$query->where('usefulllink_id',$linksid);
+		}
+		$unioninformation = $query->paginate(50);	
+		//$unioninformation = UnionInformation::where('secretary_id',$userid)->paginate(50);	
+		
+        return view('frontend.secretary.profile',compact('contactus','custominfo','menus','userid','unioninformation','links'));
+    }
+	
+	public function getAjaxUserData(Request $request)
+    {		
+		$userid = Auth::guard('secretary')->user()->id;		
+		$links = Usefulllink::orderBy('id','DESC')->get();
+		$wordno = $request->wordno;
+		$holdingno = $request->holdingno;
+		$usefulllink_id = $request->usefulllink_id;
+		
+		$query = UnionInformation::where('secretary_id',$userid);
+		
+		if($holdingno!="" && $wordno!="" && $usefulllink_id!=""){
+			$query->where('holding_no',$holdingno)->where('wordno',$wordno)->where('usefulllink_id',$usefulllink_id);
+		}
+		elseif($holdingno!="" && $wordno!="" && $usefulllink_id==""){
+			$query->where('holding_no',$holdingno)->where('wordno',$wordno);
+		}
+		
+		elseif($holdingno!="" && $wordno=="" && $usefulllink_id!=""){
+			$query->where('holding_no',$holdingno)->where('usefulllink_id',$usefulllink_id);
+		}
+		elseif($holdingno=="" && $wordno!="" && $usefulllink_id!=""){
+			$query->where('usefulllink_id',$usefulllink_id)->where('wordno',$wordno);
+		}
+		
+		elseif($holdingno!="" && $wordno=="" && $usefulllink_id==""){
+			$query->where('holding_no',$holdingno);
+		}
+		elseif($holdingno=="" && $wordno!="" && $usefulllink_id==""){
+			$query->where('wordno',$wordno);
+		}
+		elseif($holdingno=="" && $wordno=="" && $usefulllink_id!=""){
+			$query->where('usefulllink_id',$usefulllink_id);
+		}
+		$unioninformation = $query->get();	
+		
+		//$arraydata = array('totalvalue'=>$query->count(),'unioninformation'=>$unioninformation);		
+        
+		return view('frontend.secretary.ajaxdata',compact('unioninformation','links'));
     }
 
     public function updateProfile(Request $request){
@@ -112,15 +161,18 @@ class ProfileController extends Controller
        $this->validate($request, [
 			'name'=>'required|max:255',	
 			'spouse_name'=>'required|max:255',
+			'usefulllink_id'=>'required',
         ]);
 		
 		$secretary['secretary_id'] = $userid;
+		$secretary['usefulllink_id'] = $request->usefulllink_id;
 		$secretary['name'] = $request->name;
 		$secretary['spouse_name'] = $request->spouse_name;
 		$secretary['village'] = $request->village;
 		$secretary['profession'] = $request->profession;
 		$secretary['nid'] = $request->nid;
 		$secretary['holding_no'] = $request->holding_no;
+		$secretary['wordno'] = $request->wordno;
 		$secretary['land'] = $request->land;
 		$secretary['house_type'] = $request->house_type;
 		$secretary['yearly_tax'] = $request->yearly_tax;
@@ -137,6 +189,7 @@ class ProfileController extends Controller
        $this->validate($request, [
 			'name'=>'required|max:255',	
 			'spouse_name'=>'required|max:255',
+			'usefulllink_id'=>'required',
         ]);	
 		 
 		 $userid = Auth::guard('secretary')->user()->id;
@@ -144,12 +197,14 @@ class ProfileController extends Controller
          $menu = UnionInformation::find($currentuserid);
         
 		$secretary['secretary_id'] = $userid;
+		$secretary['usefulllink_id'] = $request->usefulllink_id;
 		$secretary['name'] = $request->name;
 		$secretary['spouse_name'] = $request->spouse_name;
 		$secretary['village'] = $request->village;
 		$secretary['profession'] = $request->profession;
 		$secretary['nid'] = $request->nid;
 		$secretary['holding_no'] = $request->holding_no;
+		$secretary['wordno'] = $request->wordno;
 		$secretary['land'] = $request->land;
 		$secretary['house_type'] = $request->house_type;
 		$secretary['yearly_tax'] = $request->yearly_tax;

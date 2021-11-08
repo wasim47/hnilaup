@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'ToonBD')
+@section('title', 'HNILAUP')
 
 @section('sidebar')
     @parent

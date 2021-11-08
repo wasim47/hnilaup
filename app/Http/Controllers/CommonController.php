@@ -7,7 +7,12 @@ use App\Menu;
 use Auth;
 use DB;
 use App\Administration;
+use App\UnionInformation;
+use App\Usefulllink;
+use App\Secretary;
 use Redirect;
+use Rap2hpoutre\FastExcel\FastExcel;
+use Validator;
 
 class CommonController extends Controller
 {
@@ -99,7 +104,7 @@ class CommonController extends Controller
 	public function codeGeneration()
     {
 		$token = $this->getToken(5);
-        $codes = 'ToonBD'.$token;
+        $codes = 'HNILAUP'.$token;
 		return $codes;
     }
 	
@@ -185,5 +190,138 @@ class CommonController extends Controller
 			DB::table('gift_card_groups')->where('id',$gData->id)->update($menuUpdate);		
 		}
 	}*/
+	
+	
+	
+	
+	
+	
+	 public function sampleFileDownload()
+    {
+		$getFile = 'demo_excel_file.csv';		
+    	$filePath = public_path("samplefiles/".$getFile);		
+		//dd($filePath);
+    	$headers = ['Content-Type: application/csv'];
+    	return response()->download($filePath, $getFile, $headers);
+    }
+	
+	
+	public function import(Request $req)
+    {
+		if ($req->hasFile('importfile')) {
+			$validator = Validator::make(
+			  [
+				  'file'      => $req->importfile,
+				  'extension' => strtolower($req->importfile->getClientOriginalExtension()),
+			  ],
+			  [
+				  'file'          => 'required',
+				  'extension'      => 'required|in:csv,xlsx,xls',
+			  ]
+			);
+	
+			$file = $req->file('importfile');
+			
+			$file->move(public_path('import-directory'), $file->getClientOriginalName());
+			
+	
+			$files = $file->getClientOriginalName();
+			
+			$filename = pathinfo($files, PATHINFO_FILENAME);
+			$extension = pathinfo($files, PATHINFO_EXTENSION);
+			$importfiles = $filename.'.'.$extension;
+			if($extension=='csv' || $extension=='xlsx' || $extension=='xls'){
+			
+				$path = public_path('import-directory').'/'.$importfiles;	
+					$users = (new FastExcel)->import($path, function ($line) {
+						$checkservice = Usefulllink::where('name',$line['Service Name'])->first();
+						if($checkservice!=""){
+							$serviceid = $checkservice->id;
+						}
+						else{
+							$serviceid = 0;
+						}
+						
+						$checkuser = Secretary::where('fullname',$line['Secretary Name'])->first();
+						if($checkuser!=""){
+							$secreteryid = $checkuser->id;
+						}
+						else{
+							$secreteryid = 0;
+						}
+						
+						
+						UnionInformation::create([
+							'secretary_id' => $secreteryid,
+							'usefulllink_id' => $serviceid,
+							'name' => $line['Name'],
+							'spouse_name' => $line['Father_Husband Name'],
+							'village' => $line['Village'],
+							'profession' => $line['Profession'],
+							'nid' => $line['NID'],
+							'holding_no' => $line['Holding No'],
+							'wordno' => $line['Word No'],
+							'land' => $line['Amount of land'],
+							'house_type' => $line['House Type'],
+							'yearly_tax' => $line['Yearly tax'],
+							'budget_year' => $line['Budget Year'],
+							'remark' => $line['Remart'],
+						]);
+					});		
+		
+				return redirect()->back();		
+			}
+			else{
+				return redirect()->back()->with('error','Please select excel or csv file only');
+			}
+		}
+		else{
+			return redirect()->back()->with('error','Please select excel file');
+		}
+    }
+	
+	
+	public function export(Request $req)
+    {
+				function usersGenerator() {
+					foreach (UnionInformation::cursor() as $user) {
+						$checkservice = Usefulllink::where('id',$user->usefulllink_id )->first();
+						if($checkservice!=""){
+							$serviceid = $checkservice->name;
+						}
+						else{
+							$serviceid = '';
+						}
+						
+						$checkuser = Secretary::where('id',$user->secretary_id )->first();
+						if($checkuser!=""){
+							$secreteryid = $checkuser->fullname;
+						}
+						else{
+							$secreteryid = '';
+						}
+					
+						$arrayval = array(					
+							'Secretary Name' => $secreteryid,
+							'Service Name' => $serviceid,
+							'Name' => $user->name,
+							'Father/Husband Name' => $user->spouse_name,
+							'Village' => $user->village,
+							'Profession' => $user->profession,
+							'NID' => $user->nid,
+							'Holding No' => $user->holding_no,
+							'Word No' => $user->wordno,
+							'Amount of land' => $user->land,
+							'House Type' => $user->house_type,
+							'Yearly tax' => $user->yearly_tax,
+							'Budget Year' => $user->budget_year,
+							'Remart' => $user->remark,
+						);	
+		
+						yield $arrayval;
+					}
+				}	
+				return (new FastExcel(usersGenerator()))->download('Holding_Information_'.date('Y-m-d H-m-i').'.csv');			
+    }
 
 }

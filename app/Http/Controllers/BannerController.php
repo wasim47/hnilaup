@@ -46,7 +46,7 @@ class BannerController extends Controller
                     $savedFileName = 'banner_'.time() . '.' . $file->getClientOriginalExtension();    
 
 					$pathLarge = 'uploads/banner/'.$savedFileName;
-          			$this->imageResize($file,$pathLarge,$savedFileName, 1500, 500);
+          			$this->imageResize($file,$pathLarge,$savedFileName, 1024, 600);
 
                 } catch (Illuminate\Filesystem\FileNotFoundException $e) {
               }
@@ -99,7 +99,7 @@ class BannerController extends Controller
                     $savedFileName = 'banner_'.time() . '.' . $file->getClientOriginalExtension();    
 
 					$pathLarge = 'uploads/banner/'.$savedFileName;
-          			$this->imageResize($file,$pathLarge,$savedFileName, 1500, 500);
+          			$this->imageResize($file,$pathLarge,$savedFileName, 1024, 600);
 
                 } catch (Illuminate\Filesystem\FileNotFoundException $e) {
               }

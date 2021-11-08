@@ -1,5 +1,5 @@
 @extends('admin.include.master') 
-@section('title') Welcome to ToonBD.com @endsection 
+@section('title') Welcome to HNILAUP.com @endsection 
 @section('content')
 
  <div class="layout-content">
@@ -14,7 +14,7 @@
                 <option value="last_3m">Last 90 days</option>
               </select>
             </div>-->
-            <h1 class="title-bar-title"><span class="d-ib">Dashboard - ToonBD</span></h1>
+            <h1 class="title-bar-title"><span class="d-ib">Dashboard - HNILAUP</span></h1>
             
           </div>
           <?php /*?><div class="row gutter-xs">

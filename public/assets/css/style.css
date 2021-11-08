@@ -41,7 +41,7 @@ a:hover, a:active, a:focus {
 
 p {
   padding: 0;
-  margin: 0 0 30px 0;
+  margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -498,13 +498,26 @@ h1, h2, h3, h4, h5, h6 {
   margin:0;
   font-size:20px;
 }
+#services .box h4 a{
+  padding: 5px;  
+  text-align:center;  
+  margin:0;
+  font-size:20px;
+  color:#333;
+}
 
 
 #services .box p{
-  padding: 10px;  
+  padding: 0 10px;  
   text-align:justify;  
   line-height:22px;
   font-size:17px;
+}
+
+#services .box a{
+  color:#993300;
+  padding:10px;
+  float:left;
 }
 
 
@@ -533,10 +546,16 @@ h1, h2, h3, h4, h5, h6 {
   width:100%;
   height:auto;
   float:left;
-  padding:5px;
+  padding:3px;
   border-bottom:1px solid #ccc;
-  color:#333;
+  color:#666;
+  font-size:15px;
 }
+/*#services .box .lists ul li a:before {
+    content: ' \00BB';
+	padding:5px;
+  	font-size:15px;
+}*/
 
 #services .box .lists ul li a .row{
   padding:7px;
@@ -770,3 +789,121 @@ h1, h2, h3, h4, h5, h6 {
   color: #f1f7ff;
 }
 
+
+
+.updatearea {
+   	width:100%;
+	height:auto;
+	float:left;
+	 background:#fff;
+	 padding:1px;
+}
+.scrolling_update {
+    height: 30px;
+    background-color: #0C3F06;
+    padding-top: 5px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+.marquee {
+  width:100%;
+  height:auto;
+  float:left;
+  padding:3px;
+  height:30px;	
+  overflow:hidden;
+  position:relative;
+  margin-right:0;
+  border:1px solid #ccc;
+}
+
+.marquee ul{
+  width:100%;
+  height:auto;
+  float:left;
+  padding:0;
+}
+
+.marquee ul li{
+  list-style:none;
+  display:inline;
+  width:auto;
+}
+
+.marquee ul li a{
+  width:auto;
+  height:auto;
+  float:left;
+  padding:0 3px;
+  color:#666;
+  font-size:15px;
+  display:inline;
+}
+
+/*.ticker-wrap {
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    height: 30px;
+    background: #fff;
+	border:solid 1px #0C3F06;
+    padding-left: 100%;
+   
+}
+
+.ticker-wrap .ticker {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    white-space: nowrap;
+    padding-right: 100%;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-name: ticker;
+    animation-name: ticker;
+    -webkit-animation-duration: 20s;
+    animation-duration: 20s;
+}
+
+
+  
+.ticker-wrap .ticker__item  {
+    display: inline-block;
+    padding: 0 2rem;
+    font-size: 2rem;
+    position: relative;
+}
+.ticker__item >a{
+    color: #1570A6 !important;
+	font-weight:bold;
+	float:left;
+	background:#f45600
+}
+
+.ticker:hover {
+ -webkit-animation-play-state: paused;
+  -moz-animation-play-state: paused;
+  -ms-animation-play-state: paused;
+  -o-animation-play-state: paused;  
+  animation-play-state: paused;
+  }
+  
+  
+
+.ticker__item:before{
+	content: "";
+	background-color: #f59f0b;
+	height: 12px;
+	width: 12px;
+	position: absolute;
+	top: 30%;
+	right: 100%;
+}*/
+
+ 
